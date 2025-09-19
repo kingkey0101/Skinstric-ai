@@ -1,11 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
-      <h3 className='text-3xl font-bold text-red-600' >Hello tailwind</h3>
-    </div>
+<>
+<Header />
+</>
   );
 }
 
