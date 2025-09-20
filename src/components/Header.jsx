@@ -23,7 +23,7 @@ const Header = () => {
         </div>
       </div>
       <div className="ml-auto ">
-        {pathname === "/" && (
+        {pathname === "/home" && (
           <Link to={"/enter-code"}>
             <img src={btn} alt="ENTER CODE" />
           </Link>
