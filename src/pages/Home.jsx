@@ -3,8 +3,10 @@ import Rect2779 from "../assets/Rectangle 2779.svg";
 import Rect2778 from "../assets/Rectangle 2778.png";
 import btnT from "../assets/button-take-test.png";
 import btnD from "../assets/button-discover-ai.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
+
   return (
     <div className="mt-20 pt-10 flex h-full w-full items-start justify-between">
       {/* left column */}
@@ -16,14 +18,14 @@ const Home = () => {
             alt="Rectangle-2779"
             className="h-full object-cover"
           />
-          <button className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <Link className="absolute inset-0 flex items-center justify-center pointer-events-none">
             {/*makes cursor pointer only over img */}
             <img
               src={btnD}
               alt="Discover AI"
               className="pointer-events-auto cursor-pointer"
             />
-          </button>
+          </Link>
         </div>
 
         {/* para */}
@@ -51,13 +53,13 @@ const Home = () => {
             alt="Rectangle-2779"
             className="h-full object-cover"
           />
-          <button className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <Link to='/test' className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <img
               src={btnT}
               alt="Take Test"
               className="pointer-events-auto cursor-pointer"
             />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
