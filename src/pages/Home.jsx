@@ -3,7 +3,9 @@ import Rect2779 from "../assets/Rectangle 2779.svg";
 import Rect2778 from "../assets/Rectangle 2778.png";
 import btnT from "../assets/button-take-test.png";
 import btnD from "../assets/button-discover-ai.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+// after adding all logic for take test
 
 const Home = () => {
 
