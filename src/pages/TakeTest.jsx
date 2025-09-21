@@ -4,6 +4,8 @@ import btnBck from "../assets/button-back.png";
 import rect1 from "../assets/Rect-full-1.png";
 import rect2 from "../assets/Rect-full-2.png";
 import rect3 from "../assets/Rect-full-3.png";
+import RotatingStack from "../components/RotatingStack";
+import FormLogic from "../components/FormLogic";
 
 const TakeTest = () => {
   return (
@@ -13,24 +15,9 @@ const TakeTest = () => {
       </h1>
       {/* nested rects */}
       <div className="h-screen w-screen flex items-center justify-center">
-        <img srcs={rect1} className="w-[800px] h-auto" alt="" />
-        <img
-          src={rect2}
-          className="absolute inset-0 m-auto w-[600px] h-auto"
-          alt=""
-        />
-        <img
-          src={rect3}
-          className="absolute inset-0 m-auto h-auto w-[400px]"
-          alt=""
-        />
-
-        <div className="absolute flex items-center justify-center">
-          <textarea
-            className="ml-12 pl-6 h-auto border-none resize-none font-semibold font-roobert text-4xl"
-            placeholder="Introduce Yourself"
-          ></textarea>
-        </div>
+        <RotatingStack>
+          <FormLogic />
+        </RotatingStack>
       </div>
 
       <Link
