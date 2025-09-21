@@ -10,6 +10,7 @@ const FormLogic = ({ className = "" }) => {
   const [step, setStep] = useState(0);
   const prompts = ["Introduce Yourself", "Where Are You From?"];
   const [loading, setLoading] = useState(false);
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const raw = localStorage.getItem("phaseOne");
@@ -61,6 +62,8 @@ const FormLogic = ({ className = "" }) => {
           body: JSON.stringify(form),
         }
       );
+      await sleep(2000);
+
       setLoading(false);
       setStep(2);
     }
