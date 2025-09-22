@@ -3,6 +3,8 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import TakeTest from "./pages/TakeTest";
+import AllowAi from "./pages/AllowAi";
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/test" element={<TakeTest />} />
+        <Route path="/phaseTwo" element={<AllowAi />} />
       </Routes>
     </BrowserRouter>
   );
