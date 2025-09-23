@@ -3,12 +3,14 @@ import RotatingStack from "./RotatingStack";
 import gallery from "../assets/gallery.png";
 import allow from "../assets/allow.png";
 import ImageUpload from "./ImageUpload";
+import { useNavigate } from "react-router-dom";
 
 const GalleryAccess = () => {
   const [loading, setLoading] = useState(false);
   const [apiResult, setApiResult] = useState(null);
   const [error, setError] = useState(null);
   const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
 
   const handleImageReady = async (base64, dataUrl) => {
     if (!base64 || typeof base64 !== "string") {
@@ -28,12 +30,10 @@ const GalleryAccess = () => {
     setError(null);
 
     // debug logs to see what is sent
-   console.log("Sending to API:",{
-    image: trimmed.slice(0,100) + '...',
-    length: trimmed.length
-   })
-
-
+    console.log("Sending to API:", {
+      image: trimmed.slice(0, 100) + "...",
+      length: trimmed.length,
+    });
 
     try {
       const result = await fetch(
@@ -52,6 +52,7 @@ const GalleryAccess = () => {
       }
       console.log("API success response:", json);
       setApiResult(json.data);
+      navigate("/demographics", { state: { demographics: json.data } });
     } catch (error) {
       setError(error.message || "Upload failed");
     } finally {
