@@ -9,7 +9,6 @@ const GalleryAccess = () => {
   const [loading, setLoading] = useState(false);
   const [apiResult, setApiResult] = useState(null);
   const [error, setError] = useState(null);
-  const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
 
   const handleImageReady = async (base64, dataUrl) => {
@@ -26,7 +25,6 @@ const GalleryAccess = () => {
     setLoading(true);
     setApiResult(null);
 
-    setPreview(dataUrl || null);
     setError(null);
 
     // debug logs to see what is sent
@@ -59,35 +57,21 @@ const GalleryAccess = () => {
       setLoading(false);
     }
   };
-  // console.log("Sending base64 length:", base64.length);
-  // console.log("First 50 chars:", base64.slice(0, 50));
 
   return (
     <>
       {/* upload / status */}
-      <div className="mb-6">
-        {loading && <p className="mt-2 text-gray-600">Analyzing image...</p>}
-        {error && <p className="mt-2 text-red-500"> {error} </p>}
-      </div>
-
-      {/* image preivew */}
-      {/* {preview && (
-        <div className="mb-6">
-          <p className="text-sm mb-2">Preview</p>
-          <img src={preview} alt="preview" className="max-w-xs rounded-md" />
-        </div>
-      )} */}
-
-      {/* raw api results(format UI later) */}
-      {apiResult && (
-        <div className="mb-6">
-          <p className="text-sm mb-2">AI predictions (raw)</p>
-          <pre className="whitespace-pre-wrap text-sm bg-gray-50 p-3 rounded">
-            {JSON.stringify(apiResult, null, 2)}
-          </pre>
+      {loading && (
+        <div className="relative mb-6 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <RotatingStack>
+              <p className="relative z-10 text-gray-700 text-sm flex items-center gap-2">
+                PREPARING YOUR ANALYSIS...
+              </p>
+            </RotatingStack>
+          </div>
         </div>
       )}
-
       <div>
         {/* Gallery - right side */}
         <div className="flex items-center justify-center h-screen w-1/2">
@@ -116,6 +100,8 @@ const GalleryAccess = () => {
           </div>
         </div>
       </div>
+      )}
+      {error && <p className="mt-2 text-red-500"> {error} </p>}
     </>
   );
 };

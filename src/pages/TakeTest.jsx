@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import btnBck from "../assets/button-back.png";
-import rect1 from "../assets/Rect-full-1.png";
-import rect2 from "../assets/Rect-full-2.png";
-import rect3 from "../assets/Rect-full-3.png";
+
 import RotatingStack from "../components/RotatingStack";
 import FormLogic from "../components/FormLogic";
 
