@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import gallery from "../assets/gallery.png";
+
 import btnBck from "../assets/button-back.png";
 import RotatingStack from "../components/RotatingStack";
 import CameraScan from "../components/CameraScan";
+import GalleryAccess from "../components/GalleryAccess";
 
 const AllowAi = () => {
   return (
@@ -14,13 +15,7 @@ const AllowAi = () => {
 
         {/* gallery - right side */}
 
-        <RotatingStack>
-          <div className="flex items-center justify-center h-screen w-1/2">
-            <Link className="content-center">
-              <img src={gallery} alt="" />
-            </Link>
-          </div>
-        </RotatingStack>
+       <GalleryAccess />
 
         {/* back button */}
 
