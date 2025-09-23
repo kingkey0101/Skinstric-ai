@@ -31,7 +31,9 @@ const ImageUpload = ({
     reader.onload = () => {
       const dataUrl = reader.result;
       // remove prefix for APPI base64 expectation
-      const base64 = dataUrl.split(",")[1] ?? dataUrl;
+      const base64 = (typeof dataUrl === 'string' && dataUrl.includes(','))
+      ? dataUrl.split(',')[1]
+      : dataUrl;
       onImageReady(base64, dataUrl);
       onLoading(false);
     };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import RotatingStack from "./RotatingStack";
-import { Link } from "react-router-dom";
 import gallery from "../assets/gallery.png";
 import allow from "../assets/allow.png";
 import ImageUpload from "./ImageUpload";
@@ -12,10 +11,29 @@ const GalleryAccess = () => {
   const [preview, setPreview] = useState(null);
 
   const handleImageReady = async (base64, dataUrl) => {
-    setPreview(dataUrl || null);
-    setError(null);
+    if (!base64 || typeof base64 !== "string") {
+      setError("Invalid image data");
+      return;
+    }
+
+    const trimmed = base64.trim();
+    if (trimmed.length < 100) {
+      setError("Image data seems too small");
+      return;
+    }
     setLoading(true);
     setApiResult(null);
+
+    setPreview(dataUrl || null);
+    setError(null);
+
+    // debug logs to see what is sent
+   console.log("Sending to API:",{
+    image: trimmed.slice(0,100) + '...',
+    length: trimmed.length
+   })
+
+
 
     try {
       const result = await fetch(
@@ -23,12 +41,16 @@ const GalleryAccess = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ Image: base64 }),
+          body: JSON.stringify({ image: trimmed }),
         }
       );
 
       const json = await result.json();
-      if (!result.ok) throw new Error(json?.message || `HTTP ${result.status}`);
+      if (!result.ok) {
+        console.error("API responded (error)", json);
+        throw new Error(json?.message || `HTTP ${result.status}`);
+      }
+      console.log("API success response:", json);
       setApiResult(json.data);
     } catch (error) {
       setError(error.message || "Upload failed");
@@ -36,6 +58,8 @@ const GalleryAccess = () => {
       setLoading(false);
     }
   };
+  // console.log("Sending base64 length:", base64.length);
+  // console.log("First 50 chars:", base64.slice(0, 50));
 
   return (
     <>
@@ -46,12 +70,12 @@ const GalleryAccess = () => {
       </div>
 
       {/* image preivew */}
-      {preview && (
+      {/* {preview && (
         <div className="mb-6">
           <p className="text-sm mb-2">Preview</p>
           <img src={preview} alt="preview" className="max-w-xs rounded-md" />
         </div>
-      )}
+      )} */}
 
       {/* raw api results(format UI later) */}
       {apiResult && (
