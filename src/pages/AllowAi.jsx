@@ -10,12 +10,12 @@ const AllowAi = () => {
   return (
     <>
       <div className=" relative flex justify-between h-full w-full">
+        {/* camera - left side */}
         <CameraScan />
-     
 
         {/* gallery - right side */}
 
-       <GalleryAccess />
+        <GalleryAccess />
 
         {/* back button */}
 
