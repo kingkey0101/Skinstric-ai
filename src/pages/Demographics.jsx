@@ -1,15 +1,18 @@
 import React, { useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import btnBck from "../assets/button-back.png";
+import CircleProgress from "../components/CircleRing";
 
 function sortAndFormat(obj = {}) {
   return Object.entries(obj)
     .map(([label, score]) => ({ label, score: Number(score) }))
     .sort((a, b) => b.score - a.score)
-    .map((s) => ({ ...s, display: (s.score * 100).toFixed(2) + '%' }));
+    .map((s) => ({ ...s, display: (s.score * 100).toFixed(0) + "%" }));
 }
 
 const Demographics = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const apiData = state?.demographics ?? null;
 
   const [actual, setActual] = useState({
@@ -34,60 +37,108 @@ const Demographics = () => {
     );
   }
 
-  const renderList = (title, list = [], key) => (
-    <div className="mb-6">
-      <h2 className="text-lg font-medium mb-3"> {title} </h2>
-      <ul className="space-y-2">
+  // grab top predictions
+  const topRace = raceList[0] || {};
+  const topAge = ageList[0] || {};
+  const topGender = genderList[0] || {};
+
+  // sidebar btns
+  const renderSidebarItem = (title, list, key) => {
+    return (
+      <div className="border-b">
+        <h4 className="uppercase text-xs px-4 py-2 text-gray-500"> {title} </h4>
         {list.map((it) => {
           const selected = actual[key] === it.label;
           return (
-            <li
+            <button
               key={it.label}
               onClick={() => setActual((s) => ({ ...s, [key]: it.label }))}
-              className={`flex justify-between items-center p-3 rounded-md cursor-pointer transition *:${selected} ? 'bg-blue-50 border border-blue-200 : hover:bg-gray-50'}`}
-              role="button"
+              className={`w-full text-left px-4 py-3 uppercase text-sm font-medium border-b${
+                selected ? "bg-black text-white" : "bg-gray-100 text-black"
+              }`}
             >
-              <span className="capitalize"> {it.label} </span>
-              <span className="text-sm font-medium"> {it.display} </span>
-            </li>
+              {it.label}
+            </button>
           );
         })}
-      </ul>
-    </div>
-  );
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-white p-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-4 gap-6">
-        {/* left: actual values */}
-        <aside className="col-span-1 bg-gray-50 p-4 rounded-md">
-          <h3 className="text-sm font-semibold mb-3">Actual attributes</h3>
-          <div className="space-y-3">
-            <div>
-              <div className="text-xs text-gray-500">Race</div>
-              <div className="mt-1 text-sm font-medium">
-                {" "}
-                {actual.race ?? "-"}{" "}
-              </div>
-            </div>
-            <div>
-              <div className="text-xs text-gray-500">Gender</div>
-              <div className="mt-1 text-sm font-medium">
-                {" "}
-                {actual.gender ?? "-"}{" "}
-              </div>
-            </div>
-          </div>
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* header */}
+      <header className="px-8 py-4">
+        <h2 className="text-sm font-semibold tracking-wide">A.I. ANALYSIS</h2>
+        <h1 className="text-5xl font-normal mt-2">DEMOGRAPHICS</h1>
+        <p className="text-sm mt-1">Predicted Race & Age</p>
+      </header>
+      {/* layout - main */}
+      <div className="flex flex-1 border-t">
+        {/* sidebar - left */}
+        <aside className="w-56 border-r flex flex-col">
+          {renderSidebarItem("Race", raceList.slice(0, 1), "race")}
+          {renderSidebarItem("Age", ageList.slice(0, 1), "age")}
+          {renderSidebarItem("Sex", genderList.slice(0, 1), "gender")}
         </aside>
 
-        {/* main content */}
-        <main className="col-span-3 grid grid-cols-3 gap-6">
-          <section>{renderList("Race", raceList, "race")}</section>
+        {/* center */}
+        <div className="relative flex-1 flex items-center justify-end">
+          <div className="absolute top-4 left-4 text-2xl font-medium capitalize">
+            {topRace.label}
+          </div>
+          <CircleProgress
+            value={parseFloat(topRace.display)}
+          />
+        </div>
 
-          <section>{renderList("Age", ageList, "age")}</section>
-
-          <section>{renderList("Gender", genderList, "gender")}</section>
-        </main>
+        {/* sidebar - right */}
+        <aside className="w-64 border-l p-4">
+          <h3 className="uppercase text-sm font-medium mb-4 flex justify-between">
+            <span>Race</span>
+            <span>A.I. Confidence</span>
+          </h3>
+          <ul className="space-y-2">
+            {raceList.map((it) => (
+              <li
+                key={it.label}
+                onClick={() => setActual((s) => ({ ...s, race: it.label }))}
+                className={`flex justify-between items-center px-3 py-2 cursor-pointer ${
+                  actual.race === it.label
+                    ? "bg-black text-white"
+                    : "hover:bg-gray-100"
+                }`}
+              >
+                <span className="capitalize"> {it.label} </span>
+                <span>{it.display}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
+      {/* bck btn */}
+      <button
+        onClick={() => navigate(-1)}
+        className="fixed bottom-4 left-4 flex items-center justify-center "
+      >
+        <img src={btnBck} alt="Back button" />
+      </button>
+
+      {/* footer */}
+      <footer className="sticky bottom-0 flex justify-end gap-4 px-8 py-4 border-t">
+        <button
+          className="px-6 py-2 border text-sm uppercase"
+          onClick={() => setActual({ race: null, age: null, gender: null })}
+        >
+          Reset
+        </button>
+        <button
+          className="px-6 py-2 bg-black text-white text-sm uppercase"
+          onClick={() => navigate("/nextStep", { state: { actual } })}
+        >
+          Confirm
+        </button>
+      </footer>
     </div>
   );
 };
