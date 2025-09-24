@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import TakeTest from "./pages/TakeTest";
 import AllowAi from "./pages/AllowAi";
 import Demographics from "./pages/Demographics";
+import AttributesSelection from "./pages/AttributesSelection";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/test" element={<TakeTest />} />
         <Route path="/phaseTwo" element={<AllowAi />} />
+        <Route path="/select-attributes" element={<AttributesSelection />} />
         <Route path="/demographics" element={<Demographics />} />
       </Routes>
     </BrowserRouter>

@@ -50,7 +50,7 @@ const GalleryAccess = () => {
       }
       console.log("API success response:", json);
       setApiResult(json.data);
-      navigate("/demographics", { state: { demographics: json.data } });
+      navigate("/select-attributes", { state: { demographics: json.data } });
     } catch (error) {
       setError(error.message || "Upload failed");
     } finally {
@@ -72,6 +72,7 @@ const GalleryAccess = () => {
           </div>
         </div>
       )}
+      {error && <p className="mt-2 text-red-500"> {error} </p>}
       <div>
         {/* Gallery - right side */}
         <div className="flex items-center justify-center h-screen w-1/2">
@@ -100,8 +101,6 @@ const GalleryAccess = () => {
           </div>
         </div>
       </div>
-      )}
-      {error && <p className="mt-2 text-red-500"> {error} </p>}
     </>
   );
 };
