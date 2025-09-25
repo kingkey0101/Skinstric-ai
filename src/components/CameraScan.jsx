@@ -4,8 +4,13 @@ import scan from "../assets/AIscan.png";
 import camera from "../assets/camera.png";
 import RotatingStack from "./RotatingStack";
 import { Link } from "react-router-dom";
+import Webcam from "react-webcam";
 
 const CameraScan = () => {
+  const webCam = () =>{
+    <Webcam />
+  }
+  
   return (
     <>
       {/* camera - left side */}
