@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import btnBck from "../assets/button-back.png";
 import CircleProgress from "../components/CircleRing";
+import SidebarOptions from "../components/RightSidebar";
 
 function sortAndFormat(obj = {}) {
   return Object.entries(obj)
@@ -20,9 +21,24 @@ const Demographics = () => {
     age: null,
     gender: null,
   });
+  const [activeCategory, setActiveCategory] = useState("race");
 
   const raceList = useMemo(() => sortAndFormat(apiData?.race || {}), [apiData]);
-  const ageList = useMemo(() => sortAndFormat(apiData?.age || {}), [apiData]);
+  const ageList = useMemo(() => {
+    const formatted = sortAndFormat(apiData?.age || {});
+    const parseAgeRange = (label) => {
+      if (label.includes("-")) {
+        return parseInt(label.split("-")[0], 10);
+      } else if (label.includes("+")) {
+        return parseInt(label.replace("+", ""), 10);
+      }
+      return parseInt(label, 10) || 0;
+    };
+
+    return formatted.sort(
+      (a, b) => parseAgeRange(a.label) - parseAgeRange(b.label)
+    );
+  }, [apiData]);
   const genderList = useMemo(
     () => sortAndFormat(apiData?.gender || {}),
     [apiData]
@@ -42,28 +58,19 @@ const Demographics = () => {
   const topAge = ageList[0] || {};
   const topGender = genderList[0] || {};
 
-  // sidebar btns
-  const renderSidebarItem = (title, list, key) => {
-    return (
-      <div className="border-b">
-        <h4 className="uppercase text-xs px-4 py-2 text-gray-500"> {title} </h4>
-        {list.map((it) => {
-          const selected = actual[key] === it.label;
-          return (
-            <button
-              key={it.label}
-              onClick={() => setActual((s) => ({ ...s, [key]: it.label }))}
-              className={`w-full text-left px-4 py-3 uppercase text-sm font-medium border-b${
-                selected ? "bg-black text-white" : "bg-gray-100 text-black"
-              }`}
-            >
-              {it.label}
-            </button>
-          );
-        })}
-      </div>
-    );
-  };
+  // selected
+  const currentRace =
+    raceList.find((it) => it.label === actual.race) || topRace;
+  const currentAge = ageList.find((it) => it.label === actual.age) || topAge;
+  const currentGender =
+    genderList.find((it) => it.label === actual.gender) || topGender;
+
+  const currentCategory =
+    {
+      race: currentRace,
+      age: currentAge,
+      gender: currentGender,
+    }[activeCategory] || {};
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -76,46 +83,82 @@ const Demographics = () => {
       {/* layout - main */}
       <div className="flex flex-1 border-t">
         {/* sidebar - left */}
-        <aside className="w-56 border-r flex flex-col">
-          {renderSidebarItem("Race", raceList.slice(0, 1), "race")}
-          {renderSidebarItem("Age", ageList.slice(0, 1), "age")}
-          {renderSidebarItem("Sex", genderList.slice(0, 1), "gender")}
+        <aside className="w-56 bg-gray-50 border-r flex flex-col">
+          <div
+            className={`border-b px-4 py-3 cursor-pointer ${
+              activeCategory === "race" ? "bg-gray-200" : ""
+            }`}
+            onClick={() => setActiveCategory("race")}
+          >
+            <p className="text-base font-medium capitalize mb-11">
+              {topRace.label}
+            </p>
+            <h4 className="uppercase text-base font-semibold mb-2">Race</h4>
+          </div>
+
+          <div
+            className={`border-b px-4 py-3 cursor-pointer ${
+              activeCategory === "age" ? "bg-gray-200" : ""
+            }`}
+            onClick={() => setActiveCategory("age")}
+          >
+            <p className="text-base font-medium capitalize mb-11">
+              {topAge.label}
+            </p>
+            <h4 className="uppercase text-base font-semibold mb-2">Age</h4>
+          </div>
+          <div
+            className={`border-b px-4 py-3 cursor-pointer ${
+              activeCategory === "gender" ? "bg-gray-200" : ""
+            }`}
+            onClick={() => setActiveCategory("gender")}
+          >
+            <p className="text-base font-medium capitalize mb-11">
+              {topGender.label}
+            </p>
+            <h4 className="uppercase text-base font-semibold mb-2">Sex</h4>
+          </div>
         </aside>
 
         {/* center */}
-        <div className="relative flex-1 flex items-center justify-end">
-          <div className="absolute top-4 left-4 text-2xl font-medium capitalize">
-            {topRace.label}
+        <div className="relative flex-1 flex items-center justify-end bg-gray-50 mx-8">
+          <div className="absolute top-4 left-4 text-5xl font-medium capitalize">
+            {activeCategory === "age"
+              ? `${currentAge.label} y.o.`
+              : currentCategory.label}
           </div>
-          <CircleProgress
-            value={parseFloat(topRace.display)}
-          />
+          <CircleProgress value={parseFloat(currentCategory.display)} />
         </div>
 
         {/* sidebar - right */}
-        <aside className="w-64 border-l p-4">
-          <h3 className="uppercase text-sm font-medium mb-4 flex justify-between">
-            <span>Race</span>
-            <span>A.I. Confidence</span>
-          </h3>
-          <ul className="space-y-2">
-            {raceList.map((it) => (
-              <li
-                key={it.label}
-                onClick={() => setActual((s) => ({ ...s, race: it.label }))}
-                className={`flex justify-between items-center px-3 py-2 cursor-pointer ${
-                  actual.race === it.label
-                    ? "bg-black text-white"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                <span className="capitalize"> {it.label} </span>
-                <span>{it.display}</span>
-              </li>
-            ))}
-          </ul>
+        <aside className="w-64 border-l p-4 bg-gray-50">
+          {activeCategory === "race" && (
+            <SidebarOptions
+              category="Race"
+              list={raceList}
+              selected={actual.race}
+              onSelect={(val) => setActual((s) => ({ ...s, race: val }))}
+            />
+          )}
+          {activeCategory === "age" && (
+            <SidebarOptions
+              category="Age"
+              list={ageList}
+              selected={actual.age}
+              onSelect={(val) => setActual((s) => ({ ...s, age: val }))}
+            />
+          )}
+          {activeCategory === "gender" && (
+            <SidebarOptions
+              category="Sex"
+              list={genderList}
+              selected={actual.gender}
+              onSelect={(val) => setActual((s) => ({ ...s, gender: val }))}
+            />
+          )}
         </aside>
       </div>
+
       {/* bck btn */}
       <button
         onClick={() => navigate(-1)}
