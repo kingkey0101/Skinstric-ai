@@ -27,7 +27,6 @@ const ImageUpload = ({
     }
 
     const reader = new FileReader();
-    onLoading(true);
     reader.onload = () => {
       const dataUrl = reader.result;
       // remove prefix for APPI base64 expectation
@@ -35,13 +34,11 @@ const ImageUpload = ({
       ? dataUrl.split(',')[1]
       : dataUrl;
       onImageReady(base64, dataUrl);
-      onLoading(false);
     };
     reader.onerror = () => {
       const msg = "Failed to read file";
       setLocalError(msg);
       onError(msg);
-      onLoading(false);
     };
     reader.readAsDataURL(file);
   };

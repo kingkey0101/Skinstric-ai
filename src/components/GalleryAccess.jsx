@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RotatingStack from "./RotatingStack";
 import gallery from "../assets/gallery.png";
 import allow from "../assets/allow.png";
@@ -12,8 +12,8 @@ const GalleryAccess = () => {
   const navigate = useNavigate();
 
   const handleImageReady = async (base64, dataUrl) => {
-    console.log('image reay fired', base64?.length)
-    setLoading(true)
+    console.log("image reay fired", base64?.length);
+    setLoading(true);
     if (!base64 || typeof base64 !== "string") {
       setError("Invalid image data");
       return;
@@ -45,14 +45,10 @@ const GalleryAccess = () => {
       setApiResult(json.data);
 
       setTimeout(() => {
-        setLoading(false);
         navigate("/select-attributes", { state: { demographics: json.data } });
       }, 1300);
     } catch (error) {
       setError(error.message || "Upload failed");
-      // } finally {
-      //   setLoading(false);
-      // }
     }
   };
 
@@ -60,7 +56,7 @@ const GalleryAccess = () => {
     <>
       {/* upload / status */}
       {loading && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-white/80">
+        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-white">
           <RotatingStack>
             <p className="relative z-10 text-gray-700 text-lg font-medium">
               PREPARING YOUR ANALYSIS...
