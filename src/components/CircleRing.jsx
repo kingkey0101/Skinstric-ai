@@ -1,6 +1,6 @@
 const CircleProgress = ({ value }) => {
   const radius = 180;
-  const stroke = 12;
+  const stroke = 3;
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (value / 100) * circumference;
@@ -9,7 +9,7 @@ const CircleProgress = ({ value }) => {
 
       <svg
         viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-        className="w-[500px] h-[500px] transform -rotate-90"
+        className="w-full h-full transform -rotate-90"
       >
         {/* background */}
         <circle

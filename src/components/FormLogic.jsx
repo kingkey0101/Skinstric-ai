@@ -81,7 +81,12 @@ const FormLogic = ({ className = "" }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder={step === 0 ? "Introduce Yourself" : "Where Are You From?"}
-        className="w-[350px] h-[150px] p-4 resize-none border-none font-roobert font-normal text-4xl z-10 tracking-tighter whitespace-nowrap text-center placeholder:underline placeholder:text-black"
+        className="w-[350px] h-[150px] p-4 resize-none
+         border-none outline-none ring-0
+         bg-transparent
+        font-roobert font-normal text-4xl z-10
+        tracking-tighter whitespace-nowrap text-center 
+        placeholder:underline placeholder:text-black"
       />
       {error[step === 0 ? "name" : "location"] && (
         <p className="text-red-500 text-sm">

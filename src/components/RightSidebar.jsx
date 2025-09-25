@@ -14,13 +14,18 @@ const SidebarOptions = ({ category, list, selected, onSelect }) => (
             selected === it.label ? "bg-black text-white" : "hover:bg-gray-100"
           }`}
         >
-          {/* diamond & label */}
+          {/* diamond */}
           <span className="flex items-center gap-2">
             <span
-              className={`w-3 h-3 rotate-45 border ${
-                selected === it.label ? "bg-white border-white" : "border-black"
-              }`}
-            ></span>
+              className={`relative w-3 h-3 rotate-45 border 
+           ${selected === it.label ? "border-white" : "border-black"} `}
+            >
+              {/* inner diamond */}
+              {selected === it.label && (
+                <span className="absolute inset-[2px] bg-white"></span>
+              )}
+            </span>
+            {/* label */}
             <span className="capitalize">{it.label}</span>
           </span>
           <span>{it.display}</span>

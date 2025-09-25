@@ -73,20 +73,23 @@ const Demographics = () => {
     }[activeCategory] || {};
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col px-6 lg:px-12">
       {/* header */}
       <header className="px-8 py-4">
         <h2 className="text-sm font-semibold tracking-wide">A.I. ANALYSIS</h2>
         <h1 className="text-5xl font-normal mt-2">DEMOGRAPHICS</h1>
-        <p className="text-sm mt-1">Predicted Race & Age</p>
+        <p className="text-sm mt-3">Predicted Race & Age</p>
       </header>
       {/* layout - main */}
       <div className="flex flex-1 border-t">
         {/* sidebar - left */}
-        <aside className="w-56 bg-gray-50 border-r flex flex-col">
+        <aside className="w-[208px] h-[104px] flex flex-col">
+          {/* race */}
           <div
             className={`border-b px-4 py-3 cursor-pointer ${
-              activeCategory === "race" ? "bg-gray-200" : ""
+              activeCategory === "race"
+                ? "bg-black text-white"
+                : "bg-gray-100 hover:bg-gray-100"
             }`}
             onClick={() => setActiveCategory("race")}
           >
@@ -95,10 +98,13 @@ const Demographics = () => {
             </p>
             <h4 className="uppercase text-base font-semibold mb-2">Race</h4>
           </div>
+          {/* age */}
 
           <div
-            className={`border-b px-4 py-3 cursor-pointer ${
-              activeCategory === "age" ? "bg-gray-200" : ""
+            className={`border-t-2 border-gray-800 px-4 py-3 cursor-pointer mt-4 ${
+              activeCategory === "age"
+                ? "bg-black text-white"
+                : " bg-gray-100 hover:bg-gray-100"
             }`}
             onClick={() => setActiveCategory("age")}
           >
@@ -107,9 +113,12 @@ const Demographics = () => {
             </p>
             <h4 className="uppercase text-base font-semibold mb-2">Age</h4>
           </div>
+          {/* sex */}
           <div
-            className={`border-b px-4 py-3 cursor-pointer ${
-              activeCategory === "gender" ? "bg-gray-200" : ""
+            className={`px-4 py-3 border-t-2 border-gray-800 cursor-pointer mt-4 ${
+              activeCategory === "gender"
+                ? "bg-black text-white"
+                : "bg-gray-100 hover:bg-gray-100"
             }`}
             onClick={() => setActiveCategory("gender")}
           >
@@ -121,17 +130,19 @@ const Demographics = () => {
         </aside>
 
         {/* center */}
-        <div className="relative flex-1 flex items-center justify-end bg-gray-50 mx-8">
+        <div className="relative flex-1 flex justify-end bg-gray-50 mx-8 w-[1168px] h-[544px] ">
           <div className="absolute top-4 left-4 text-5xl font-medium capitalize">
             {activeCategory === "age"
               ? `${currentAge.label} y.o.`
               : currentCategory.label}
           </div>
-          <CircleProgress value={parseFloat(currentCategory.display)} />
+          <div className="absolute bottom-8 right-8 w-[384px] h-[384px]">
+            <CircleProgress value={parseFloat(currentCategory.display)} />
+          </div>
         </div>
 
         {/* sidebar - right */}
-        <aside className="w-64 border-l p-4 bg-gray-50">
+        <aside className="w-[448px] h-[554px] border-t-2 border-gray-800 p-4 bg-gray-50">
           {activeCategory === "race" && (
             <SidebarOptions
               category="Race"
@@ -168,7 +179,12 @@ const Demographics = () => {
       </button>
 
       {/* footer */}
-      <footer className="sticky bottom-0 flex justify-end gap-4 px-8 py-4 border-t">
+      <footer className="sticky bottom-0 flex items-center justify-between gap-4 px-8 py-4">
+        <div className="w-24"></div>
+        <div className="flex flex-1 justify-center ">
+          <h3 className="text-xs text-gray-500">If A.I. estimate is wrong, please select the correct one.</h3>
+        </div>
+
         <button
           className="px-6 py-2 border text-sm uppercase"
           onClick={() => setActual({ race: null, age: null, gender: null })}
