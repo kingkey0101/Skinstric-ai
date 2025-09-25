@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import vec1 from "../assets/Vector 1.png";
 import scan from "../assets/AIscan.png";
 import camera from "../assets/camera.png";
@@ -7,13 +7,34 @@ import { Link } from "react-router-dom";
 import Webcam from "react-webcam";
 
 const CameraScan = () => {
-  const webCam = () =>{
-    <Webcam />
-  }
-  
+  const [showCam, setShowCam] = useState(false);
+  const webcamRef = useRef(null);
+  const constraints = {
+    width: 640,
+    height: 400,
+    facingMode: "user",
+  };
+
   return (
     <>
+      {/* <button
+    onClick={()=> setShowCam(v=>!v) }
+    >Toggle cam for test
+
+    </button>
+    {showCam && (
+      <div>
+        <Webcam 
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        videoConstraints={constraints}
+
+        />
+      </div>
+    )} */}
+
       {/* camera - left side */}
+
       <div className="flex items-center justify-center h-screen w-1/2">
         <div className="relative ">
           <div className="transform scale-50 origin-center">
@@ -21,14 +42,23 @@ const CameraScan = () => {
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative inline-block mb-32">
-              <Link>
+              <button onClick={() => setShowCam((v) => !v)}>
+                {showCam && (
+                  <div>
+                    <Webcam
+                      ref={webcamRef}
+                      screenshotFormat="image/jpeg"
+                      videoConstraints={constraints}
+                    />
+                  </div>
+                )}
                 <img src={camera} alt="camera" />
                 <img
                   src={scan}
                   alt="scan"
                   className="absolute left-full ml-4 top-0 -translate-y-1/3 w-[200px] h-auto pointer-events-none scale-150"
                 />
-              </Link>
+              </button>
             </div>
           </div>
         </div>
