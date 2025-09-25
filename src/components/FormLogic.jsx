@@ -76,6 +76,9 @@ const FormLogic = ({ className = "" }) => {
       </h1>
       <input
         key={step}
+        autoComplete="off"
+        spellCheck={false}
+        autoCorrect="off"
         name={step === 0 ? "name" : "location"}
         value={step === 0 ? form.name : form.location}
         onChange={handleChange}

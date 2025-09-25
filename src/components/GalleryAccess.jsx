@@ -12,7 +12,6 @@ const GalleryAccess = () => {
   const navigate = useNavigate();
 
   const handleImageReady = async (base64, dataUrl) => {
-    console.log("image reay fired", base64?.length);
     setLoading(true);
     if (!base64 || typeof base64 !== "string") {
       setError("Invalid image data");
