@@ -11,36 +11,50 @@ import CameraLoading from "./CameraLoading";
 const CameraScan = () => {
   const webcamRef = useRef(null);
   const [step, setStep] = useState("idle");
-  const [camReady, setCamReady] = useState(false);
   const constraints = {
     width: 640,
     height: 400,
     facingMode: "user",
   };
+  const startCamera = () => {
+    setStep("loadingCam");
+    setTimeout(() => {
+      setStep("showCam");
+    }, 800);
+  };
 
-  if (step === "loadingCam" && !camReady) {
+  if (step === "loadingCam") {
     return <CameraLoading />;
   }
-  if (step == "showCam" && camReady) {
+  if (step == "showCam") {
     return (
       <div className="relative h-screen w-screen bg-black">
         <Webcam
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={constraints}
-          onUserMedia={() => {}}
-          className="w-full h-full object-cover filter blur-sm"
+          className="absolute inset-0 w-full h-full object-cover"
         />
+        {/* blur */}
+        <div className="absolute inset-0 backdrop-blur-sm"></div>
+
         <div className="absolute bottom-8 w-full text-center">
           <p className="text-lg">TO GET BETTER RESULTS MAKE SURE TO HAVE</p>
 
-          {/* diamond */}
-          <span className="flex items-center gap-2">
-            <span
-              className='relative w-3 h-3 rotate-45 border 
-           "border-white border-black '
-            ></span>
-          </span>
+          <ul className="space-y-2">
+            <li className="flex items-center justify-center gap-2 text-white">
+              <span className="inline-block w-2 h-2 bg-white"></span>
+              NUETRAL EXPRESSION
+            </li>
+            <li className="flex items-center justify-center gap-2 text-white">
+              <span className="inline-block w-2 h-2 bg-white"></span>
+              FRONTAL POSE
+            </li>
+            <li className="flex items-center justify-center gap-2 text-white">
+              <span className="inline-block w-2 h-2 bg-white"></span>
+              ADEQUATE LIGHTING
+            </li>
+          </ul>
         </div>
       </div>
     );
@@ -62,7 +76,7 @@ const CameraScan = () => {
                 {step === "askPermission" && (
                   <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-4 z-20">
                     <Modal
-                      onAllow={() => setStep("loadingCam")}
+                      onAllow={startCamera}
                       onDeny={() => setStep("idle")}
                     />
                   </div>
@@ -70,9 +84,9 @@ const CameraScan = () => {
                 <button
                   disabled={step !== "idle"}
                   onClick={() => setStep("askPermission")}
-                  className={`${
+                  className={
                     step !== "idle" ? "cursor-not-allowed opacity-50" : ""
-                  }`}
+                  }
                 >
                   <img src={camera} alt="camera" />
                   <img
@@ -81,18 +95,6 @@ const CameraScan = () => {
                     className="absolute left-full top-0.5 -translate-y-1/3 w-[200px] h-auto pointer-events-none scale-150"
                   />
                 </button>
-                {step === "loadingCam" && (
-                  <Webcam
-                    ref={webcamRef}
-                    screenshotFormat="image/jpeg"
-                    videoConstraints={constraints}
-                    onUserMedia={() => {
-                      setCamReady(true);
-                      setStep("showCam");
-                    }}
-                    className="hidden"
-                  />
-                )}
               </div>
             </div>
           </div>
