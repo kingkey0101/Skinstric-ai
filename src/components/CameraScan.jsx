@@ -42,23 +42,26 @@ const CameraScan = () => {
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative inline-block mb-32">
-              <button onClick={() => setShowCam((v) => !v)}>
-                {showCam && (
-                  <div>
-                    <Webcam
-                      ref={webcamRef}
-                      screenshotFormat="image/jpeg"
-                      videoConstraints={constraints}
+              <div className="relative w-[200px] h-[200px]">
+                {!showCam && (
+                  <button onClick={() => setShowCam((v) => !v)}>
+                    <img src={camera} alt="camera" />
+                    <img
+                      src={scan}
+                      alt="scan"
+                      className="absolute left-full ml-4 top-0 -translate-y-1/3 w-[200px] h-auto pointer-events-none scale-150"
                     />
-                  </div>
+                  </button>
                 )}
-                <img src={camera} alt="camera" />
-                <img
-                  src={scan}
-                  alt="scan"
-                  className="absolute left-full ml-4 top-0 -translate-y-1/3 w-[200px] h-auto pointer-events-none scale-150"
-                />
-              </button>
+                {showCam && (
+                  <Webcam
+                    ref={webcamRef}
+                    screenshotFormat="image/jpeg"
+                    videoConstraints={constraints}
+                    className="absolute inset-0 w-full h-full object-cover rounded-full"
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
