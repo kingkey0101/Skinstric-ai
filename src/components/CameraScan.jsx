@@ -37,25 +37,6 @@ const CameraScan = () => {
         />
         {/* blur */}
         <div className="absolute inset-0 backdrop-blur-sm"></div>
-
-        <div className="absolute bottom-8 w-full text-center">
-          <p className="text-lg">TO GET BETTER RESULTS MAKE SURE TO HAVE</p>
-
-          <ul className="space-y-2">
-            <li className="flex items-center justify-center gap-2 text-white">
-              <span className="inline-block w-2 h-2 bg-white"></span>
-              NUETRAL EXPRESSION
-            </li>
-            <li className="flex items-center justify-center gap-2 text-white">
-              <span className="inline-block w-2 h-2 bg-white"></span>
-              FRONTAL POSE
-            </li>
-            <li className="flex items-center justify-center gap-2 text-white">
-              <span className="inline-block w-2 h-2 bg-white"></span>
-              ADEQUATE LIGHTING
-            </li>
-          </ul>
-        </div>
       </div>
     );
   }
