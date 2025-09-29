@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import btnBck from "../assets/button-back.png";
-import RotatingStack from "../components/RotatingStack";
 import CameraScan from "../components/CameraScan";
 import GalleryAccess from "../components/GalleryAccess";
 
 const AllowAi = () => {
+  const [cameraStep, setCameraStep] = useState("idle");
   return (
     <>
       <div className=" relative flex justify-between h-full w-full">
         {/* camera - left side */}
-        <CameraScan />
+        <CameraScan onStepChange={setCameraStep} />
 
         {/* gallery - right side */}
 
-        <GalleryAccess />
+        {cameraStep === "idle" && <GalleryAccess />}
 
         {/* back button */}
 
