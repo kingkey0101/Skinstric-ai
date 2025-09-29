@@ -6,17 +6,17 @@ import Webcam from "react-webcam";
 import Modal from "./Modal";
 import CameraLoading from "./CameraLoading";
 import takePic from "../assets/take-pic.png";
-import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl";
-import * as bodyPix from "@tensorflow-models/body-pix";
+import proceed from "../assets/button-pro-white.png";
 
 const CameraScan = ({ onStepChange }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [bodyPixModel, setBodyPixModel] = useState(null);
+  // const [bodyPixModel, setBodyPixModel] = useState(null);
+  const [capturedSrc, setCapturedSrc] = useState(null);
   const [step, setStep] = useState("idle");
   useEffect(() => {
-    if (onStepChange) onStepChange(step);
+    onStepChange?.(step);
   }, [step, onStepChange]);
 
   const constraints = {
@@ -31,48 +31,49 @@ const CameraScan = ({ onStepChange }) => {
     }, 800);
   };
 
-  useEffect(() => {
-    const setUpTf = async () => {
-      await tf.setBackend("webgl");
-      await tf.ready();
-      const model = await bodyPix.load();
-      setBodyPixModel(model);
-    };
-    setUpTf();
-  }, []);
-
-  useEffect(() => {
-    if (!bodyPixModel || !webcamRef.current?.video) return;
-    const video = webcamRef.current.video;
-    const canvas = canvasRef.current;
-    let animationFrameId;
-
-    const draw = async () => {
-      if (video.readyState === 4) {
-        const segmentation = await bodyPixModel.segmentPerson(video, {
-          internalResolution: "medium",
-          segmentationThreshold: 0.7,
-        });
-        bodyPix.drawBokehEffect(canvas, video, segmentation, 15, 0, true);
-      }
-      animationFrameId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [bodyPixModel]);
-
   const takePicture = useCallback(() => {
-    if (webcamRef.current) {
-      const imageSrc = webcamRef.current.getScreenshot();
-      console.log("Captured:", imageSrc);
-      console.log("current step:", step);
+    const imageSrc = webcamRef.current.getScreenshot();
+    if (imageSrc) {
+      setCapturedSrc(imageSrc);
+      setStep("captured");
     }
   }, []);
 
   if (step === "loadingCam") {
     return <CameraLoading />;
   }
+
+  // useEffect(() => {
+  //   const setUpTf = async () => {
+  //     await tf.setBackend("webgl");
+  //     await tf.ready();
+  //     const model = await bodyPix.load();
+  //     setBodyPixModel(model);
+  //   };
+  //   setUpTf();
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!bodyPixModel || !webcamRef.current?.video) return;
+  //   const video = webcamRef.current.video;
+  //   const canvas = canvasRef.current;
+  //   let animationFrameId;
+
+  //   const draw = async () => {
+  //     if (video.readyState === 4) {
+  //       const segmentation = await bodyPixModel.segmentPerson(video, {
+  //         internalResolution: "medium",
+  //         segmentationThreshold: 0.7,
+  //       });
+  //       bodyPix.drawBokehEffect(canvas, video, segmentation, 15, 0, true);
+  //     }
+  //     animationFrameId = requestAnimationFrame(draw);
+  //   };
+  //   draw();
+
+  //   return () => cancelAnimationFrame(animationFrameId);
+  // }, [bodyPixModel]);
+
   if (step === "showCam") {
     const tips = ["NEUTRAL EXPRESSION", "FRONTAL POSE", "ADEQUATE LIGHTING"];
     return (
@@ -84,6 +85,12 @@ const CameraScan = ({ onStepChange }) => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+        <button
+          onClick={takePicture}
+          className="absolute right-8 top-1/2 transform -translate-y-1/2 px-4 py-2 shadow-lg"
+        >
+          <img src={takePic} alt="take pic" />
+        </button>
 
         <div className="absolute bottom-16 inset-x-0 text-center px-4">
           <p className="text-sm tracking-wide mb-8 text-[#FCFCFC]">
@@ -101,11 +108,24 @@ const CameraScan = ({ onStepChange }) => {
             ))}
           </div>
         </div>
-        <button
-          onClick={takePicture}
-          className="absolute right-8 top-1/2 transform -translate-y-1/2 px-4 py-2 shadow-lg"
-        >
-          <img src={takePic} alt="take pic" />
+      </div>
+    );
+  }
+
+  if (step === "captured" && capturedSrc) {
+    return (
+      <div className="fixed inset-0 bg-black flex flex-col items-center justify-center overflow-hidden z-20 p-4">
+        {/* show picture */}
+        <img
+          src={capturedSrc}
+          alt="captured"
+          className="absolute inset-0 w-full h-full object-cover mb-4"
+        />
+        <p className="absolute top-10 inset-x-0 text-center text-white text-xl font-semibold">
+          GREAT SHOT!
+        </p>
+        <button className="px-4 py-2" onClick={() => setStep("idle")}>
+          <img src={proceed} alt="proceed" className="absolute bottom-4 right-4" />
         </button>
       </div>
     );
