@@ -135,7 +135,7 @@ const CameraScan = ({ onStepChange }) => {
     <>
       {/* camera - left side */}
 
-      <div className="flex items-center justify-center h-screen w-1/2">
+      <div className="flex items-center justify-center h-screen w-full md:w-1/2 lg:w-1/4">
         <div className="relative ">
           <div className="transform scale-50 origin-center">
             <RotatingStack />
