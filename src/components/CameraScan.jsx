@@ -55,12 +55,12 @@ const CameraScan = () => {
         <div className="absolute bottom-32 w-full text-center px-4">
           <p className="text-white text-lg mb-3">TO GET BETTER RESULTS BE SURE TO HAVE:</p>
           <ul className="inline-block text-left space-y-2">
-            {['NUETRAL EXPRESSION', 'FRONTAL POSE', 'ADEQUATE LIGHTING']}.map((tip)=>(
+            {['NUETRAL EXPRESSION', 'FRONTAL POSE', 'ADEQUATE LIGHTING'].map((tip)=>(
               <li key={tip} className="flex items-center space-x-2 text-white">
                 <span className="inline-block w-2 h-2 bg-white"></span>
                 <span>{tip}</span>
               </li>
-            ))
+            ))}
           </ul>
         </div>
         <button onClick={takePicture} className="absolute bottom-8 right-8 px-6 py-3 shadow-lg">
