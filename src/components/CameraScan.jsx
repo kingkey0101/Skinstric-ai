@@ -1,12 +1,11 @@
-import React, { useRef, useState } from "react";
-import vec1 from "../assets/Vector 1.png";
+import React, { useCallback, useRef, useState } from "react";
 import scan from "../assets/AIscan.png";
 import camera from "../assets/camera.png";
 import RotatingStack from "./RotatingStack";
-import { Link } from "react-router-dom";
 import Webcam from "react-webcam";
 import Modal from "./Modal";
 import CameraLoading from "./CameraLoading";
+import takePic from '../assets/take-pic.png'
 
 const CameraScan = () => {
   const webcamRef = useRef(null);
@@ -23,6 +22,13 @@ const CameraScan = () => {
     }, 800);
   };
 
+  const takePicture = useCallback(()=>{
+    if(webcamRef.current){
+      const imageSrc = webcamRef.current.getScreenshot()
+      console.log('Captured:', imageSrc)
+    }
+  }, [])
+
   if (step === "loadingCam") {
     return <CameraLoading />;
   }
@@ -33,10 +39,33 @@ const CameraScan = () => {
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={constraints}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-screen h-screen object-cover filter blur-sm"
         />
-        {/* blur */}
-        <div className="absolute inset-0 backdrop-blur-sm"></div>
+        {/* unblur face */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-72 h-96 overflow-hidden rounded-lg">
+            <Webcam 
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={constraints}
+            className="w-screen h-screen object-cover"
+            />
+          </div>
+        </div>
+        <div className="absolute bottom-32 w-full text-center px-4">
+          <p className="text-white text-lg mb-3">TO GET BETTER RESULTS BE SURE TO HAVE:</p>
+          <ul className="inline-block text-left space-y-2">
+            {['NUETRAL EXPRESSION', 'FRONTAL POSE', 'ADEQUATE LIGHTING']}.map((tip)=>(
+              <li key={tip} className="flex items-center space-x-2 text-white">
+                <span className="inline-block w-2 h-2 bg-white"></span>
+                <span>{tip}</span>
+              </li>
+            ))
+          </ul>
+        </div>
+        <button onClick={takePicture} className="absolute bottom-8 right-8 px-6 py-3 shadow-lg">
+          <img src={takePic} alt="take pic" />
+        </button>
       </div>
     );
   }
