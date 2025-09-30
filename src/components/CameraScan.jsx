@@ -141,22 +141,20 @@ const CameraScan = ({ onStepChange }) => {
   if (step === "idle" || step === "askPermission") {
     return (
       <div className="relative flex items-center justify-center h-screen w-full">
-        {/* 1) The 3-layer spinner, scaled down */}
         <div className="transform scale-50 origin-center">
           <RotatingStack />
         </div>
 
-        {/* 2) The 200×200 camera button box, centered */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative inline-block w-[200px] h-[200px]">
-            {/* 3) Permission Modal, positioned to the right of that box */}
+            {/*  Permission Modal*/}
             {step === "askPermission" && (
               <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-4 z-50">
                 <Modal onAllow={startCamera} onDeny={() => setStep("idle")} />
               </div>
             )}
 
-            {/* 4) Your camera + scan overlay */}
+            {/*  camera + scan overlay */}
             <button
               disabled={step !== "idle"}
               onClick={() => setStep("askPermission")}
