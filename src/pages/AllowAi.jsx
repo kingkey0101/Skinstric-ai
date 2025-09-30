@@ -10,11 +10,25 @@ const AllowAi = () => {
     <>
       <div className=" relative flex justify-between h-full w-full">
         {/* camera - left side */}
-        <CameraScan onStepChange={setCameraStep} />
+        <div className="flex flex-1 items-center justify-start">
+          <CameraScan onStepChange={setCameraStep} />
+        </div>
 
         {/* gallery - right side */}
-
-        {cameraStep === "idle" && <GalleryAccess />}
+        <div className=" relative flex justify-between h-full w-full">
+          <div
+            className={`flex flex-1 justify-end transition-all ${
+              cameraStep === "askPermission"
+                ? "opacity-50 pointer-events-none"
+                : ""
+            }
+        `}
+          >
+            {cameraStep === "idle" || cameraStep === "askPermission" ? (
+              <GalleryAccess />
+            ) : null}
+          </div>
+        </div>
 
         {/* back button */}
 
