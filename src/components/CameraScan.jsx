@@ -64,7 +64,7 @@ const CameraScan = ({ onStepChange }) => {
       if (!response.ok)
         throw new Error(json.message || `HTTP ${response.status}`);
 
-      navigate("/select-attributes", {
+      navigate("select-attributes", {
         state: { demographics: json.data },
       });
     } catch (error) {
@@ -143,12 +143,12 @@ const CameraScan = ({ onStepChange }) => {
 
   if (step === "idle" || step === "askPermission") {
     return (
-      <div className="relative flex items-center justify-center h-screen w-full">
+      <div className="relative flex items-center justify-center">
         <div className="transform scale-50 origin-center">
           <RotatingStack />
         </div>
 
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center w-full h-full">
           <div className="relative w-[200px] h-[200px] flex items-center justify-center">
             {/*  camera + scan overlay */}
             <button
