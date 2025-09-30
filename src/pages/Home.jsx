@@ -10,15 +10,15 @@ import { Link } from "react-router-dom";
 const Home = () => {
 
   return (
-    <div className="mt-20 pt-10 flex h-full w-full items-start justify-between">
+    <div className="mt-10 pt-6 flex h-full w-full items-start justify-between gap-6 px-4">
       {/* left column */}
-      <div className="flex flex-col gap-16 ">
+      <div className="flex flex-col gap-8 flex-shrink max-w-[320px] w-full ">
         {/* discover ai */}
-        <div className="relative">
+        <div className="relative w-full">
           <img
             src={Rect2779}
             alt="Rectangle-2779"
-            className="h-full object-cover"
+            className="h-auto w-full object-contain"
           />
           <Link className="absolute inset-0 flex items-center justify-center pointer-events-none">
             {/*makes cursor pointer only over img */}
@@ -32,28 +32,28 @@ const Home = () => {
 
         {/* para */}
 
-        <p className="text-sm font-semibold uppercase w-[316px] pl-4">
+        <p className="text-sm sm:text-sm md:text-base font-semibold uppercase max-w-[316px] w-full">
           Skinstric developed an A.I. that creates a highly-personalised routine
           tailored to what your skin needs.
         </p>
       </div>
 
       {/* sophisticated skincare */}
-      <div className="relative w-[602px] h-[602px] ">
-        <h1 className="absolute inset-0 flex items-center justify-center text-center font-roobert text-[120px] leading-[120px] text-[#1A1B1C] tracking-tighter ">
+      <div className="relative flex-shrink w-[200px] sm:w-[400px] lg:w-[602px] h-[602px] aspect-square ">
+        <h1 className="absolute inset-0 flex items-center justify-center text-center font-roobert text-2xl sm:text-5xl lg:text-[120px] leading-tight text-[#1A1B1C] tracking-tighter px-2">
           Sophisticated skincare
         </h1>
       </div>
 
       {/* right column */}
 
-      <div className="flex flex-col items-end">
+      <div className="flex flex-col items-end flex-shrink max-w-[320px] w-full">
         {/* take test */}
-        <div className="relative ">
+        <div className="relative w-full">
           <img
             src={Rect2778}
             alt="Rectangle-2779"
-            className="h-full object-cover"
+            className="h-auto w-full object-contain"
           />
           <Link to='/test' className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <img
