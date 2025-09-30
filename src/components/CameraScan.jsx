@@ -17,6 +17,7 @@ const CameraScan = ({ onStepChange }) => {
   const [step, setStep] = useState("idle");
   const navigate = useNavigate();
   useEffect(() => {
+    console.log("CameraScan step:", step);
     onStepChange?.(step);
   }, [step, onStepChange]);
 
@@ -35,12 +36,18 @@ const CameraScan = ({ onStepChange }) => {
   const takePicture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
+      console.log('takePicture got imageSrc:', imageSrc.slice(0,50) + '...')
       setCapturedSrc(imageSrc);
       setStep("captured");
     }
   }, []);
 
   const handleProceed = useCallback(async () => {
+    console.log("handleProceed firing, caturedSrc:", capturedSrc?.slice(0,50) + '...');
+    if (!capturedSrc) {
+      alert("No photo to upload-please retake your shot.");
+      return;
+    }
     setStep("uploading");
 
     const base64 = capturedSrc.split(",")[1].trim();
@@ -57,7 +64,7 @@ const CameraScan = ({ onStepChange }) => {
       if (!response.ok)
         throw new Error(json.message || `HTTP ${response.status}`);
 
-      navigate("select-attributes", {
+      navigate("/select-attributes", {
         state: { demographics: json.data },
       });
     } catch (error) {
@@ -123,17 +130,13 @@ const CameraScan = ({ onStepChange }) => {
         <p className="absolute top-10 inset-x-0 text-center text-white text-xl font-semibold">
           GREAT SHOT!
         </p>
-        <Link
-          to={"/select-attributes"}
-          className="px-4 py-2"
-          onClick={() => setStep("idle")}
-        >
+        <button className="px-4 py-2" onClick={handleProceed}>
           <img
             src={proceed}
             alt="proceed"
             className="absolute bottom-4 right-4"
           />
-        </Link>
+        </button>
       </div>
     );
   }
@@ -146,19 +149,12 @@ const CameraScan = ({ onStepChange }) => {
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative inline-block w-[200px] h-[200px]">
-            {/*  Permission Modal*/}
-            {step === "askPermission" && (
-              <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-4 z-50">
-                <Modal onAllow={startCamera} onDeny={() => setStep("idle")} />
-              </div>
-            )}
-
+          <div className="relative w-[200px] h-[200px] flex items-center justify-center">
             {/*  camera + scan overlay */}
             <button
               disabled={step !== "idle"}
               onClick={() => setStep("askPermission")}
-              className="w-full h-full flex items-center justify-center"
+              className="relative"
             >
               <img src={camera} alt="camera icon" className="mb-16" />
               <img
@@ -169,6 +165,12 @@ const CameraScan = ({ onStepChange }) => {
               "
               />
             </button>
+            {/*  Permission Modal*/}
+            {step === "askPermission" && (
+              <div className="absolute left-full top-0.5 transform -translate-y-1/2 ml-4 z-50">
+                <Modal onAllow={startCamera} onDeny={() => setStep("idle")} />
+              </div>
+            )}
           </div>
         </div>
       </div>
