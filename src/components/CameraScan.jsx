@@ -36,14 +36,17 @@ const CameraScan = ({ onStepChange }) => {
   const takePicture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
-      console.log('takePicture got imageSrc:', imageSrc.slice(0,50) + '...')
+      console.log("takePicture got imageSrc:", imageSrc.slice(0, 50) + "...");
       setCapturedSrc(imageSrc);
       setStep("captured");
     }
   }, []);
 
   const handleProceed = useCallback(async () => {
-    console.log("handleProceed firing, caturedSrc:", capturedSrc?.slice(0,50) + '...');
+    console.log(
+      "handleProceed firing, caturedSrc:",
+      capturedSrc?.slice(0, 50) + "..."
+    );
     if (!capturedSrc) {
       alert("No photo to upload-please retake your shot.");
       return;
@@ -98,7 +101,7 @@ const CameraScan = ({ onStepChange }) => {
           <img src={takePic} alt="take pic" />
         </button>
 
-        <div className="absolute bottom-16 inset-x-0 text-center px-4">
+        <div className="absolute bottom-24 inset-x-0 text-center px-4">
           <p className="text-sm tracking-wide mb-8 text-[#FCFCFC]">
             TO GET BETTER RESULTS BE SURE TO HAVE
           </p>
@@ -127,7 +130,7 @@ const CameraScan = ({ onStepChange }) => {
           alt="captured"
           className="absolute inset-0 w-full h-full object-cover mb-4"
         />
-        <p className="absolute top-10 inset-x-0 text-center text-white text-xl font-semibold">
+        <p className="absolute flex items-center justify-center mt-28 top-10 inset-x-0 text-center text-white text-xl font-semibold">
           GREAT SHOT!
         </p>
         <button className="px-4 py-2" onClick={handleProceed}>
