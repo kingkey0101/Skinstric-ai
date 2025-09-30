@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
 
   return (
-    <div className="mt-10 pt-6 flex h-full w-full items-start justify-between gap-6 px-4">
+    <div className="mt-10 pt-6 flex flex-col lg:flex-row h-full w-full items-center lg:items-start justify-between gap-6 px-4">
       {/* left column */}
       <div className="flex flex-col gap-8 flex-shrink max-w-[320px] w-full ">
         {/* discover ai */}
@@ -25,21 +25,21 @@ const Home = () => {
             <img
               src={btnD}
               alt="Discover AI"
-              className="pointer-events-auto cursor-pointer"
+              className="pointer-events-auto cursor-pointer w-2/3 sm:w-auto"
             />
           </Link>
         </div>
 
         {/* para */}
 
-        <p className="text-sm sm:text-sm md:text-base font-semibold uppercase max-w-[316px] w-full">
+        <p className="text-sm sm:text-base md:text-base text-center lg:text-left font-semibold uppercase max-w-[316px] w-full">
           Skinstric developed an A.I. that creates a highly-personalised routine
           tailored to what your skin needs.
         </p>
       </div>
 
       {/* sophisticated skincare */}
-      <div className="relative flex-shrink w-[200px] sm:w-[400px] lg:w-[602px] h-[602px] aspect-square ">
+      <div className="relative w-full max-w-[602px] aspect-square flex-shrink">
         <h1 className="absolute inset-0 flex items-center justify-center text-center font-roobert text-2xl sm:text-5xl lg:text-[120px] leading-tight text-[#1A1B1C] tracking-tighter px-2">
           Sophisticated skincare
         </h1>
@@ -47,7 +47,7 @@ const Home = () => {
 
       {/* right column */}
 
-      <div className="flex flex-col items-end flex-shrink max-w-[320px] w-full">
+      <div className="flex flex-col items-center lg:items-end flex-shrink max-w-[320px] w-full">
         {/* take test */}
         <div className="relative w-full">
           <img
@@ -59,7 +59,7 @@ const Home = () => {
             <img
               src={btnT}
               alt="Take Test"
-              className="pointer-events-auto cursor-pointer"
+              className="pointer-events-auto cursor-pointer w-2/3 sm:w-auto"
             />
           </Link>
         </div>

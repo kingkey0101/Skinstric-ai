@@ -12,7 +12,6 @@ import proceed from "../assets/button-pro-white.png";
 const CameraScan = ({ onStepChange }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  // const [bodyPixModel, setBodyPixModel] = useState(null);
   const [capturedSrc, setCapturedSrc] = useState(null);
   const [step, setStep] = useState("idle");
   useEffect(() => {
@@ -42,37 +41,6 @@ const CameraScan = ({ onStepChange }) => {
   if (step === "loadingCam") {
     return <CameraLoading />;
   }
-
-  // useEffect(() => {
-  //   const setUpTf = async () => {
-  //     await tf.setBackend("webgl");
-  //     await tf.ready();
-  //     const model = await bodyPix.load();
-  //     setBodyPixModel(model);
-  //   };
-  //   setUpTf();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!bodyPixModel || !webcamRef.current?.video) return;
-  //   const video = webcamRef.current.video;
-  //   const canvas = canvasRef.current;
-  //   let animationFrameId;
-
-  //   const draw = async () => {
-  //     if (video.readyState === 4) {
-  //       const segmentation = await bodyPixModel.segmentPerson(video, {
-  //         internalResolution: "medium",
-  //         segmentationThreshold: 0.7,
-  //       });
-  //       bodyPix.drawBokehEffect(canvas, video, segmentation, 15, 0, true);
-  //     }
-  //     animationFrameId = requestAnimationFrame(draw);
-  //   };
-  //   draw();
-
-  //   return () => cancelAnimationFrame(animationFrameId);
-  // }, [bodyPixModel]);
 
   if (step === "showCam") {
     const tips = ["NEUTRAL EXPRESSION", "FRONTAL POSE", "ADEQUATE LIGHTING"];
