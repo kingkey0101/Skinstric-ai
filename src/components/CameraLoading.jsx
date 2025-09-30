@@ -7,7 +7,7 @@ const CameraLoading = () => {
   return (
     <div className="fixed z-50 inset-0 bg-white flex flex-col items-center justify-center px-4">
       <div className="relative w-full h-full mb-8">
-        <div className="absolute inset-0 flex items-center justify-center z-0">
+        <div className="absolute inset-0 flex items-center justify-center transform scale-75 origin-center z-0">
           <RotatingStack />
         </div>
         <div className="absolute inset-0 flex items-center justify-center z-10">

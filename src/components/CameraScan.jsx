@@ -64,7 +64,7 @@ const CameraScan = ({ onStepChange }) => {
       if (!response.ok)
         throw new Error(json.message || `HTTP ${response.status}`);
 
-      navigate("select-attributes", {
+      navigate("/select-attributes", {
         state: { demographics: json.data },
       });
     } catch (error) {
