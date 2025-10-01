@@ -16,9 +16,9 @@ const Header = () => {
         >
           SKINSTRIC
         </Link>
-        <div className="hidden sm:flex items-center space-x-1">
+        <div className="flex items-center space-x-1">
           <img src={halfRect} className="h-3 sm:h-4" />
-          <p className="m-1.5 text-[#1A1B1C] text-semibold flex items-center justify-center font-roboto opacity-70 text-xs sm:text-sm">
+          <p className="m-1.5 text-[#1A1B1C] text-semibold flex items-center justify-center font-roboto opacity-70 text-xs">
             INTRO
           </p>
           <img src={halfRect} className="h-3 sm:h-4 transform scale-x-[-1]" />

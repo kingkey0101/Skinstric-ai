@@ -2,6 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      lg: { max: "2000px" },
+      md: { max: "1535px" },
+      sm: { max: "1279px" },
+    },
+
     extend: {
       keyframes: {
         slowspin: {
@@ -20,5 +26,15 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      display: ["max-lg", "max-md", "max-sm"],
+      flexDirection: ["max-lg", "max-md", "max-sm"],
+      width: ["max-lg", "max-md", "max-sm"],
+      padding: ["max-lg", "max-md", "max-sm"],
+      textAlign: ["max-lg", "max-md", "max-sm"],
+    },
+  },
+
   plugins: [],
 };

@@ -8,38 +8,56 @@ import { Link } from "react-router-dom";
 // after adding all logic for take test
 
 const Home = () => {
-
   return (
-    <div className="mt-10 pt-6 flex flex-col lg:flex-row h-full w-full items-center lg:items-start justify-between gap-6 px-4">
+    <div
+      className="relative w-full h-screen
+      mt-10 pt-6
+      flex flex-col lg:flex-row
+      items-start
+      justify-start lg:justify-between gap-6
+      px-8
+      max-lg:px-4
+      max-md:px-2
+"
+    >
       {/* left column */}
-      <div className="flex flex-col gap-8 flex-shrink max-w-[320px] w-full ">
+      <div
+        className="w-full
+      lg:w-1/4
+      flex flex-col
+      items-center lg:items-start   
+      gap-8"
+      >
         {/* discover ai */}
         <div className="relative w-full">
           <img
             src={Rect2779}
             alt="Rectangle-2779"
-            className="h-auto w-full object-contain"
+            className="h-auto w-full max-w-full object-contain"
           />
           <Link className="absolute inset-0 flex items-center justify-center pointer-events-none">
             {/*makes cursor pointer only over img */}
             <img
               src={btnD}
               alt="Discover AI"
-              className="pointer-events-auto cursor-pointer w-2/3 sm:w-auto"
+              className="w-auto
+              md:w-2/3
+              lg:w-auto
+              h-auto
+              pointer-events-auto cursor-pointer"
             />
           </Link>
         </div>
 
-        {/* para */}
-
-        <p className="text-sm sm:text-base md:text-base text-center lg:text-left font-semibold uppercase max-w-[316px] w-full">
-          Skinstric developed an A.I. that creates a highly-personalised routine
-          tailored to what your skin needs.
-        </p>
       </div>
 
       {/* sophisticated skincare */}
-      <div className="relative w-full max-w-[602px] aspect-square flex-shrink">
+      <div
+        className="w-full lg:w-1/3
+        relative aspect-square
+        flex items-center justify-center
+        max-md:my-8"
+      >
         <h1 className="absolute inset-0 flex items-center justify-center text-center font-roobert text-2xl sm:text-5xl lg:text-[120px] leading-tight text-[#1A1B1C] tracking-tighter px-2">
           Sophisticated skincare
         </h1>
@@ -47,22 +65,54 @@ const Home = () => {
 
       {/* right column */}
 
-      <div className="flex flex-col items-center lg:items-end flex-shrink max-w-[320px] w-full">
+      <div
+        className="w-full lg:w-1/4
+        flex flex-col
+        items-center lg:items-end
+        gap-8"
+      >
         {/* take test */}
         <div className="relative w-full">
           <img
             src={Rect2778}
             alt="Rectangle-2779"
-            className="h-auto w-full object-contain"
+            className="h-auto w-full max-w-full object-contain"
           />
-          <Link to='/test' className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <Link
+            to="/test"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          >
             <img
               src={btnT}
               alt="Take Test"
-              className="pointer-events-auto cursor-pointer w-2/3 sm:w-auto"
+              className="w-auto
+              md:w-2/3
+              lg:w-auto
+              h-auto
+              pointer-events-auto cursor-pointer"
             />
           </Link>
         </div>
+        
+        {/* para */}
+
+        <p
+          className="absolute
+          bottom-24
+          left-8
+          max-w-[316px]
+          text-sm
+          sm:text-base
+          md:text-lg
+          lg:text-xl
+          text-[#1a1b1c]
+          uppercase
+          font-semibold
+          leading-snug"
+        >
+          Skinstric developed an A.I. that creates a highly-personalized routine
+          tailored to what your skin needs.
+        </p>
       </div>
     </div>
   );

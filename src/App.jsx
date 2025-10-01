@@ -7,20 +7,21 @@ import AllowAi from "./pages/AllowAi";
 import Demographics from "./pages/Demographics";
 import AttributesSelection from "./pages/AttributesSelection";
 
-
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/test" element={<TakeTest />} />
-        <Route path="/phaseTwo" element={<AllowAi />} />
-        <Route path="/select-attributes" element={<AttributesSelection />} />
-        <Route path="/demographics" element={<Demographics />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/test" element={<TakeTest />} />
+          <Route path="/phaseTwo" element={<AllowAi />} />
+          <Route path="/select-attributes" element={<AttributesSelection />} />
+          <Route path="/demographics" element={<Demographics />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

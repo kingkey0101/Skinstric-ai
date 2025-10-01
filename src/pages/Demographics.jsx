@@ -193,7 +193,7 @@ const Demographics = () => {
         </button>
         <button
           className="px-6 py-2 bg-black text-white text-sm uppercase"
-          onClick={() => navigate("/nextStep", { state: { actual } })}
+          onClick={() => navigate("/home", { state: { actual } })}
         >
           Confirm
         </button>
