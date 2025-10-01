@@ -3,10 +3,13 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
-      lg: { max: "2000px" },
-      md: { max: "1535px" },
-      sm: { max: "1279px" },
+      sm: "640px",  
+      md: "768px",   
+      lg: "1024px",  
+      xl: "1280px",
+      "2xl": "1536px",
     },
+
 
     extend: {
       keyframes: {

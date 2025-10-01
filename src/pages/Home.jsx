@@ -7,76 +7,79 @@ import { Link } from "react-router-dom";
 
 // after adding all logic for take test
 
+//
+
 const Home = () => {
   return (
     <div
-      className="relative w-full h-screen
-      mt-10 pt-6
-      flex flex-col lg:flex-row
-      items-start
-      justify-start lg:justify-between gap-6
-      px-8
-      max-lg:px-4
-      max-md:px-2
-"
+      className="relative
+    flex items-center justify-between
+    min-h-screen
+    px-4 sm:px-6 md:px-12"
     >
-      {/* left column */}
-      <div
-        className="w-full
-      lg:w-1/4
-      flex flex-col
-      items-center lg:items-start   
-      gap-8"
-      >
-        {/* discover ai */}
-        <div className="relative w-full">
-          <img
-            src={Rect2779}
-            alt="Rectangle-2779"
-            className="h-auto w-full max-w-full object-contain"
-          />
-          <Link className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {/*makes cursor pointer only over img */}
+      <div className="flex items-center justify-center">
+        {/* left column */}
+        <div className="flex flex-col items-center lg:items-start">
+          {/* discover ai */}
+          <div
+            className="relative
+          w-20 sm:w-28 md:w-48 lg:w-64 lg:left-[-150px]"
+          >
             <img
-              src={btnD}
-              alt="Discover AI"
-              className="w-auto
-              md:w-2/3
-              lg:w-auto
+              src={Rect2779}
+              alt="Rectangle-2779"
+              className="h-auto w-full object-contain"
+            />
+            <Link className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              {/*makes cursor pointer only over img */}
+              <img
+                src={btnD}
+                alt="Discover AI"
+                className="w-2/3 min-w-[140px] md:w-1/2
+             lg:w-auto
               h-auto
               pointer-events-auto cursor-pointer"
-            />
-          </Link>
+              />
+            </Link>
+          </div>
         </div>
+        {/* para */}
 
+        <p
+          className="mt-4 max-w-[260px]
+          text-center lg:text-left
+          text-xs sm:text-sm md:text-base lg:text-lg
+          uppercase font-semibold leading-snug text-[#1a1b1c]"
+        >
+          Skinstric developed an A.I. that creates a highly-personalized routine
+          tailored to what your skin needs.
+        </p>
       </div>
 
-      {/* sophisticated skincare */}
-      <div
-        className="w-full lg:w-1/3
-        relative aspect-square
-        flex items-center justify-center
-        max-md:my-8"
-      >
-        <h1 className="absolute inset-0 flex items-center justify-center text-center font-roobert text-2xl sm:text-5xl lg:text-[120px] leading-tight text-[#1A1B1C] tracking-tighter px-2">
+      {/* sophisticated skincare - center*/}
+      <div className="flex flex-1 items-center justify-center px-2">
+        <h1
+          className="text-center font-roobert
+         text-[clamp(2rem,8vw,120px)]
+          leading-tight text-[#1a1b1c]
+           tracking-tighter"
+        >
           Sophisticated skincare
         </h1>
       </div>
 
       {/* right column */}
 
-      <div
-        className="w-full lg:w-1/4
-        flex flex-col
-        items-center lg:items-end
-        gap-8"
-      >
+      <div className="flex flex-col items-center lg:items-end">
         {/* take test */}
-        <div className="relative w-full">
+        <div
+          className="relative
+          w-20 sm:w-28 md:w-48 lg:w-64 lg:right-[-150px]"
+        >
           <img
             src={Rect2778}
             alt="Rectangle-2779"
-            className="h-auto w-full max-w-full object-contain"
+            className="h-auto w-full object-contain"
           />
           <Link
             to="/test"
@@ -85,34 +88,13 @@ const Home = () => {
             <img
               src={btnT}
               alt="Take Test"
-              className="w-auto
-              md:w-2/3
-              lg:w-auto
+              className="w-2/3 min-w-[140px] 
+             lg:w-auto
               h-auto
               pointer-events-auto cursor-pointer"
             />
           </Link>
         </div>
-        
-        {/* para */}
-
-        <p
-          className="absolute
-          bottom-24
-          left-8
-          max-w-[316px]
-          text-sm
-          sm:text-base
-          md:text-lg
-          lg:text-xl
-          text-[#1a1b1c]
-          uppercase
-          font-semibold
-          leading-snug"
-        >
-          Skinstric developed an A.I. that creates a highly-personalized routine
-          tailored to what your skin needs.
-        </p>
       </div>
     </div>
   );
