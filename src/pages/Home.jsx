@@ -71,7 +71,8 @@ const Home = () => {
           <div
             className="relative
         w-20 sm:w-24 md:w-32
-        lg:absolute lg:top-[179px] lg:left-[-100px] lg:w-[275px]"
+        md:absolute md:top-[140px] md:left-[-60px]
+        lg:top-[179px] lg:left-[-220px] lg:w-[275px]"
           >
             <img
               src={Rect2779}
@@ -111,7 +112,8 @@ const Home = () => {
           <div
             className="relative
         w-20 sm:w-24 md:w-32
-        lg:absolute lg:top-[179px] lg:right-[-100px] lg:w-[275px]"
+        md:absolute md:top-[140px] md:right-[-60px]
+        lg:top-[179px] lg:right-[-220px] lg:w-[275px]"
           >
             <img
               src={Rect2778}
@@ -136,11 +138,10 @@ const Home = () => {
         {/* para */}
 
         <p
-          className="absolute top-24 sm:top-28 md:top-32
-        left-4 sm:left-6 md:left-8
-        text-sm md:text-base lg:text-lg
-        uppercase font-semibold leading-snug text-[#1a1b1c]
-        lg:absolute lg:bottom-28 lg:left-8 lg:top-auto"
+          className="absolute bottom-16 sm:bottom-20 md:bottom-24 left-4 sm:left-6 md:left-8
+          text-sm md:text-base lg:text-lg
+          uppercase font-semibold leading-snug
+          text-[#1a1b1c] lg:bottom-28"
         >
           <span className="block">
             Skinstric developed an A.I. that creates

@@ -3,9 +3,9 @@ import rect1 from "../assets/Rect-full-1.png";
 import rect2 from "../assets/Rect-full-2.png";
 import rect3 from "../assets/Rect-full-3.png";
 
-const RotatingStack = ({ children }) => {
+const RotatingStack = ({ children, className = '' }) => {
   return (
-    <div className="relative w-[800px] h-[800px] mx-auto mb-32">
+    <div className={`relative w-[800px] h-[800px] mx-auto mb-32 ${className}`}>
       {/* largest */}
       <img
         src={rect1}

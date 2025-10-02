@@ -9,12 +9,12 @@ const Header = () => {
     <header
       className="w-full flex items-center justify-between bg-white
      py-3 sm:py-4 px-0 sm:px-2   
-      z-20"
+      z-[9999]"
     >
       <div className="flex items-center space-x-2">
         <Link
           to={"/home"}
-          className="font-roboto font-semibold text-xs sm:text-xs text-[#1A1B1C]"
+          className="font-roboto font-semibold text-xs sm:text-xs text-[#1A1B1C] z-[9999]"
         >
           SKINSTRIC
         </Link>

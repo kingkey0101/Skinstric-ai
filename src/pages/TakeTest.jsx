@@ -7,12 +7,12 @@ import FormLogic from "../components/FormLogic";
 
 const TakeTest = () => {
   return (
-    <div className="relative h-screen">
-      <h1 className="ml-4 uppercase w-[227px] h-[24px] top-20 left-8 font-roobert font-semibold text-sm tracking-[-2%] leading-[24px] text-[#1A1B1C] ">
+    <div className="relative w-screen h-screen overflow-hidden">
+      <h1 className="absolute top-4 left-4 uppercase font-roobert font-semibold text-sm tracking-[-2%] leading-[24px] text-[#1A1B1C] ">
         to start analysis
       </h1>
       {/* nested rects */}
-      <div className="h-screen w-screen flex items-center justify-center">
+      <div className="fixed inset-0 flex items-center justify-center">
         <RotatingStack>
           <FormLogic />
         </RotatingStack>

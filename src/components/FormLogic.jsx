@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import btnBck from "../assets/button-back.png";
 import btnPro from "../assets/button-proceed.png";
+import { div } from "@tensorflow/tfjs";
+import RotatingStack from "./RotatingStack";
 
 const FormLogic = ({ className = "" }) => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", location: "" });
   const [error, setError] = useState({ name: "", location: "" });
   const [step, setStep] = useState(0);
-  const prompts = ["Introduce Yourself", "Where Are You From?"];
   const [loading, setLoading] = useState(false);
+  const [dots, setDots] = useState("");
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
@@ -25,6 +27,14 @@ const FormLogic = ({ className = "" }) => {
       setStep(0);
     }
   }, []);
+  // dot animation
+  useEffect(() => {
+    if (!loading) return;
+    const interval = setInterval(() => {
+      setDots((prev) => (prev.length < 3 ? prev + "." : ""));
+    }, 300);
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const validate = (key, val) => {
     if (!val.trim()) return "Required";
@@ -70,35 +80,54 @@ const FormLogic = ({ className = "" }) => {
   };
 
   return (
-    <form className={`${className} flex flex-col items-center`}>
-      <h1 className="text-xl font-roobert font-extralight text-[#1A1B1C] z-20 tracking-tighter">
-        Click To Type
-      </h1>
-      <input
-        key={step}
-        autoComplete="off"
-        spellCheck={false}
-        autoCorrect="off"
-        name={step === 0 ? "name" : "location"}
-        value={step === 0 ? form.name : form.location}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder={step === 0 ? "Introduce Yourself" : "Where Are You From?"}
-        className="w-[350px] h-[150px] p-4 resize-none
-         border-none outline-none ring-0
-         bg-transparent
-        font-roobert font-normal text-4xl z-10
-        tracking-tighter whitespace-nowrap text-center 
-        placeholder:underline placeholder:text-black"
-      />
-      {error[step === 0 ? "name" : "location"] && (
-        <p className="text-red-500 text-sm">
-          {" "}
-          {error[step === 0 ? "name" : "location"]}{" "}
-        </p>
-      )}
+    <>
+      <form
+        className={`${className} p-6
+        flex flex-col items-center text-center
+`}
+      >
+        <h1 className="text-xl font-roobert font-extralight text-[#1A1B1C] text-center">
+          Click To Type
+        </h1>
+        <input
+          key={step}
+          autoComplete="off"
+          spellCheck={false}
+          autoCorrect="off"
+          name={step === 0 ? "name" : "location"}
+          value={step === 0 ? form.name : form.location}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder={
+            step === 0 ? "Introduce Yourself" : "Where Are You From?"
+          }
+          className="w-screen py-4 md:py-6
+          leading-normal resize-none border-none outline-none
+          bg-transparent font-roobert text-3xl sm:text-4xl
+          text-center placeholder:underline placeholder:text-black placeholder:text-center
+          placeholder:-translate-y-1/2"
+        />
+        {error[step === 0 ? "name" : "location"] && (
+          <p className="text-red-500 text-sm">
+            {error[step === 0 ? "name" : "location"]}
+          </p>
+        )}
+      </form>
+
+      {/* loading */}
+
       {step === 1 && loading && (
-        <p className="mt-2 text-gray-600">Loading... </p>
+        <div className="fixed inset-0 flex items-center justify-center bg-white z-40 text-center">
+          <RotatingStack>
+            <p className="text-lg md:text-2xl font-semibold text-gray-800">
+              Processing Submission
+              <br />
+              <span className="inline-block w-[3ch] text-center text-4xl md:text-5xl font-semibold text-gray-700 tracking-widest">
+                {dots}
+              </span>
+            </p>
+          </RotatingStack>
+        </div>
       )}
 
       <div className="w-[300px] flex justify-between">
@@ -110,14 +139,28 @@ const FormLogic = ({ className = "" }) => {
         </Link>
       </div>
       {step === 2 && !loading && (
-        <Link
-          to={"/phaseTwo"}
-          className="fixed bottom-4 right-4 flex items-center justify-center"
-        >
-          <img src={btnPro} alt="Proceed button" />
-        </Link>
+        <>
+          <div className="fixed inset-0 flex items-center justify-center bg-white z-40 text-center">
+            <RotatingStack>
+              <div className="px-4 text-center">
+                <p className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6">
+                  <span className="block">Thank you!</span>
+                  <span className="block mt-8 font-light">
+                    Proceed to the next step.
+                  </span>
+                </p>
+              </div>
+            </RotatingStack>
+          </div>
+          <Link
+            to={"/phaseTwo"}
+            className="fixed bottom-4 right-4 flex items-center justify-center z-50"
+          >
+            <img src={btnPro} alt="Proceed button" />
+          </Link>
+        </>
       )}
-    </form>
+    </>
   );
 };
 

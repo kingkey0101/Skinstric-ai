@@ -87,7 +87,7 @@ const CameraScan = ({ onStepChange }) => {
   if (step === "showCam") {
     const tips = ["NEUTRAL EXPRESSION", "FRONTAL POSE", "ADEQUATE LIGHTING"];
     return (
-      <div className="relative w-full h-full overflow-hidden">
+      <div className="fixed inset-0 bg-black">
         <Webcam
           ref={webcamRef}
           screenshotFormat="image/jpeg"
@@ -133,6 +133,12 @@ const CameraScan = ({ onStepChange }) => {
         <p className="absolute flex items-center justify-center mt-28 top-10 inset-x-0 text-center text-white text-xl font-semibold">
           GREAT SHOT!
         </p>
+        
+        {/* retake button */}
+        <button className="absolute bottom-4 left-4 px-4 py-2 bg-white/20 text-white">
+          RETAKE
+        </button>
+        {/* proceed button */}
         <button className="px-4 py-2" onClick={handleProceed}>
           <img
             src={proceed}
@@ -141,6 +147,7 @@ const CameraScan = ({ onStepChange }) => {
           />
         </button>
       </div>
+      
     );
   }
 
