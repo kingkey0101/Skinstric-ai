@@ -13,8 +13,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* responsive */}
+          <Route path="/" element={<Home />} /> 
+          {/* responsive */}
           <Route path="/home" element={<Home />} />
+          {/* responsive */}
           <Route path="/test" element={<TakeTest />} />
           <Route path="/phaseTwo" element={<AllowAi />} />
           <Route path="/select-attributes" element={<AttributesSelection />} />
