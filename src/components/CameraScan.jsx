@@ -87,12 +87,12 @@ const CameraScan = ({ onStepChange }) => {
   if (step === "showCam") {
     const tips = ["NEUTRAL EXPRESSION", "FRONTAL POSE", "ADEQUATE LIGHTING"];
     return (
-      <div className="fixed inset-0 overflow-hidden z-10">
+      <div className="relative w-full h-full overflow-hidden">
         <Webcam
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={constraints}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
         <button
           onClick={takePicture}
@@ -123,12 +123,12 @@ const CameraScan = ({ onStepChange }) => {
 
   if (step === "captured") {
     return (
-      <div className="fixed inset-0 bg-black flex flex-col items-center justify-center overflow-hidden z-20 p-4">
+      <div className="relative w-full h-full bg-black flex flex-col items-center justify-center overflow-hidden z-20 p-4">
         {/* show picture */}
         <img
           src={capturedSrc}
           alt="captured"
-          className="absolute inset-0 w-full h-full object-cover mb-4"
+          className="w-full h-full object-cover mb-4"
         />
         <p className="absolute flex items-center justify-center mt-28 top-10 inset-x-0 text-center text-white text-xl font-semibold">
           GREAT SHOT!
@@ -146,7 +146,7 @@ const CameraScan = ({ onStepChange }) => {
 
   if (step === "idle" || step === "askPermission") {
     return (
-      <div className="relative flex items-center justify-center">
+      <div className="relative w-full h-full flex items-center justify-center">
         <div className="transform scale-50 origin-center">
           <RotatingStack />
         </div>
@@ -164,13 +164,16 @@ const CameraScan = ({ onStepChange }) => {
                 src={scan}
                 alt="scan overlay"
                 className="
-               absolute left-full top-0.5 -translate-y-1/3 w-[200px] h-auto pointer-events-none scale-150
+               absolute
+               top-0.5 left-full -translate-y-1/2
+               w-[120px] md:w-[200px] h-auto pointer-events-none
+               scale-100 md:scale-150
               "
               />
             </button>
             {/*  Permission Modal*/}
             {step === "askPermission" && (
-              <div className="absolute left-full top-0.5 transform -translate-y-1/2 ml-4 z-50">
+              <div className="fixed inset-0 flex items-center justify-center z-50  ml-8 md:transform-none">
                 <Modal onAllow={startCamera} onDeny={() => setStep("idle")} />
               </div>
             )}

@@ -86,7 +86,10 @@ const GalleryAccess = () => {
               <img
                 src={allow}
                 alt="scan"
-                className="absolute right-full ml-4 bottom-0-0 -translate-y-1/3 w-[200px] h-auto pointer-events-none scale-150"
+                className="absolute
+                top-full left-[-60px] -translate-x-1/2
+                w-[120px] md:w-[200px] h-auto pointer-events-none
+                scale-100 md:scale-150"
               />
             </div>
           </div>
