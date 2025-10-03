@@ -28,7 +28,7 @@ const Header = () => {
       </div>
 
       {(pathname === "/" || pathname === "/home") && (
-        <Link to="/enter-code" className="flex-shrink-0">
+        <Link to="/home" className="flex-shrink-0">
           <img
             src={btn}
             alt="ENTER CODE"
