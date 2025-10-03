@@ -151,7 +151,7 @@ const CameraScan = ({ onStepChange }) => {
         </p>
 
         {/* retake button */}
-        <button className="absolute bottom-4 left-4 px-4 py-2 bg-white/20 text-white rounded">
+        <button onClick={()=> navigate(- 1)} className="absolute bottom-4 left-4 px-4 py-2 bg-white/20 text-white rounded">
           RETAKE
         </button>
         {/* proceed button */}
