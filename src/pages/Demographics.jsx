@@ -73,7 +73,7 @@ const Demographics = () => {
     }[activeCategory] || {};
 
   return (
-    <div className="h-screen bg-white flex flex-col">
+    <div className="h-screen bg-white flex flex-col ">
       {/* header */}
       <header className="sticky top-0 z-40 bg-white px-4 lg:px-0 py-4">
         <h2 className="text-sm font-semibold tracking-wide">A.I. ANALYSIS</h2>
@@ -84,7 +84,7 @@ const Demographics = () => {
       </header>
 
       {/* layout - main */}
-      <div className="flex flex-col lg:flex-row flex-1 border-t overflow-y-auto pb-24 lg:w-screen lg:max-w-none lg:justify-between lg:gap-0 lg:px-0">
+      <div className="flex flex-col lg:flex-row flex-1 border-t overflow-y-auto pb-24 lg:w-full lg:max-w-none lg:justify-between lg:gap-0 lg:px-0 ">
         {/* sidebar - left */}
         <aside className="order-1 lg:order-1 w-full lg:w-[208px] flex-shrink-0 flex flex-col lg:ml-0 lg:px-0">
           {/* race */}
@@ -135,7 +135,7 @@ const Demographics = () => {
         {/* center */}
         <div className="order-2 lg:order-2 flex flex-col items-center justify-center bg-gray-50 
          w-full h-[300px] sm:h-[400px]
-         lg:w-[1168px] lg:h-[544px] lg:mx-4 mt-5 lg:mt-0">
+         lg:w-[1168px] lg:h-[544px] lg:mx-4 mt-5 lg:mt-0  pr-2">
           <div className="text-3xl sm:text-4xl font-medium capitalize mb-4">
             {activeCategory === "age"
               ? `${currentAge.label} y.o.`
@@ -150,7 +150,7 @@ const Demographics = () => {
         </div>
 
         {/* sidebar - right */}
-        <aside className="order-3 lg:order-3 w-full lg:w-[448px] border-t-2 border-gray-800 p-4 bg-gray-50 mt-5 lg:mt-0">
+        <aside className="order-3 lg:order-3 w-full lg:w-[448px] border-t-2 border-gray-800 p-4  bg-gray-50 mt-5 lg:mt-0">
           {activeCategory === "race" && (
             <SidebarOptions
               category="Race"
