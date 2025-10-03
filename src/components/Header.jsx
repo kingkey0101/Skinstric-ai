@@ -14,7 +14,7 @@ const Header = () => {
       <div className="flex items-center space-x-2">
         <Link
           to={"/home"}
-          className="font-roboto font-semibold text-xs sm:text-xs text-[#1A1B1C] z-[9999]"
+          className="font-roboto font-semibold text-xs sm:text-xs text-[#1A1B1C] z-[20]"
         >
           SKINSTRIC
         </Link>

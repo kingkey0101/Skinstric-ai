@@ -66,14 +66,9 @@ const Home = () => {
     px-4 sm:px-6 md:px-12 lg:px-16"
       >
         {/* left column */}
-        <div className="flex-shrink-0">
+        <div className="absolute left-0 top-[140px] lg:top-[179px]">
           {/* discover ai */}
-          <div
-            className="relative
-        w-20 sm:w-24 md:w-32
-        md:absolute md:top-[140px] md:left-[-60px]
-        lg:top-[179px] lg:left-[-220px] lg:w-[275px]"
-          >
+          <div className="relative w-24 sm:w-32 md:w-40 lg:w-[275px] -ml-4 sm:-ml-6 md:-ml-12 lg:-ml-52 ">
             <img
               src={Rect2779}
               alt="Rectangle-2779"
@@ -107,14 +102,9 @@ const Home = () => {
 
         {/* right column */}
 
-        <div className="flex-shrink-0">
+        <div className="absolute right-0 top-[140px] lg:top-[179px]">
           {/* take test */}
-          <div
-            className="relative
-        w-20 sm:w-24 md:w-32
-        md:absolute md:top-[140px] md:right-[-60px]
-        lg:top-[179px] lg:right-[-220px] lg:w-[275px]"
-          >
+          <div className="relative w-24 sm:w-32 md:w-40 lg:w-[275px] -mr-4 sm:-mr-6 md:-mr-12 lg:-mr-52">
             <img
               src={Rect2778}
               alt="Rectangle-2779"

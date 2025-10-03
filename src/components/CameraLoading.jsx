@@ -2,35 +2,58 @@ import React from "react";
 import RotatingStack from "./RotatingStack";
 import camera from "../assets/camera.png";
 
-const CameraLoading = () => {
+const CameraLoading = ({ step, message }) => {
   const tips = ["NEUTRAL EXPRESSION", "FRONTAL POSE", "ADEQUATE LIGHTING"];
   return (
     <div className="fixed z-50 inset-0 bg-white flex flex-col items-center justify-center px-4">
-      <div className="relative w-full h-full mb-8">
-        <div className="absolute inset-0 flex items-center justify-center transform scale-75 origin-center z-0">
-          <RotatingStack />
-        </div>
+      <div className="relative w-48 h-48 mb-8">
+        <div className="absolute inset-0 flex items-center justify-center z-0 scale-75 sm:scale-90 md:scale-100"></div>
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <img src={camera} alt="camera" className="w-32 h-32" />
+          {step === "loadingCam" && (
+            <RotatingStack className="w-64 h-64">
+              <img src={camera} alt="camera" className="w-32 h-32" />
+            </RotatingStack>
+          )}
+          {step === "analyzing" && (
+            <div className="h-12 w-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin" />
+          )}
+          {step === "uploading" && (
+            <svg
+              className="w-12 h-12 animate-bounce text-gray-800"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M3 16a4 4 0 004 4h6a4 4 0 004-4V8H3v8zM5 4h10l-1-2H6L5 4z" />
+            </svg>
+          )}
         </div>
       </div>
+
       <p className="text-xl font-semibold text-gray-800 text-center mb-4">
-        SETTING UP CAMERA...
+        {message || "Loading..."}
       </p>
-      <p className="text-sm text-gray-600 text-center mb-6">
-        TO GET BETTER RESULTS, MAKE SURE TO HAVE
-      </p>
-      <ul className="flex scroll-p-6">
-        {tips.map((tip) => (
-          <li
-            key={tip}
-            className="flex items-center space-x-2 text-sm text-gray-600"
-          >
-            <span className="inline-block w-2 h-2 bg-white border border-black transform rotate-45 origin-center"></span>
-            <span>{tip}</span>
-          </li>
-        ))}
-      </ul>
+
+      {/* tips */}
+
+      {step === "loadingCam" && (
+        <>
+          <p className="text-sm text-gray-600 text-center mb-6">
+            TO GET BETTER RESULTS, MAKE SURE TO HAVE
+          </p>
+
+          <ul className="flex scroll-p-6">
+            {tips.map((tip) => (
+              <li
+                key={tip}
+                className="flex items-center space-x-2 text-sm text-gray-600"
+              >
+                <span className="inline-block w-2 h-2 bg-white border border-black transform rotate-45 origin-center"></span>
+                <span>{tip}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

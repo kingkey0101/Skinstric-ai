@@ -17,7 +17,6 @@ const CameraScan = ({ onStepChange }) => {
   const [step, setStep] = useState("idle");
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("CameraScan step:", step);
     onStepChange?.(step);
   }, [step, onStepChange]);
 
@@ -36,22 +35,17 @@ const CameraScan = ({ onStepChange }) => {
   const takePicture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
-      console.log("takePicture got imageSrc:", imageSrc.slice(0, 50) + "...");
       setCapturedSrc(imageSrc);
       setStep("captured");
     }
   }, []);
 
   const handleProceed = useCallback(async () => {
-    console.log(
-      "handleProceed firing, caturedSrc:",
-      capturedSrc?.slice(0, 50) + "..."
-    );
     if (!capturedSrc) {
       alert("No photo to upload-please retake your shot.");
       return;
     }
-    setStep("uploading");
+    setStep("analyzing");
 
     const base64 = capturedSrc.split(",")[1].trim();
     try {
@@ -67,9 +61,12 @@ const CameraScan = ({ onStepChange }) => {
       if (!response.ok)
         throw new Error(json.message || `HTTP ${response.status}`);
 
-      navigate("/select-attributes", {
-        state: { demographics: json.data },
-      });
+      setStep("thankyou");
+      setTimeout(() => {
+        navigate("/select-attributes", {
+          state: { demographics: json.data },
+        });
+      }, 2000);
     } catch (error) {
       console.error("Upload error:", error);
       alert("Upload failed:" + error.message);
@@ -78,10 +75,29 @@ const CameraScan = ({ onStepChange }) => {
   }, [capturedSrc, navigate]);
 
   if (step === "loadingCam") {
-    return <CameraLoading message="Starting camera..." />;
+    return <CameraLoading step={"loadingCam"} message="Setting up camera..." />;
+  }
+  if (step === "analyzing") {
+    return <CameraLoading step={"analyzing"} message="Analyzing image..." />;
   }
   if (step === "uploading") {
-    return <CameraLoading message="Uploading photo..." />;
+    return <CameraLoading step={"uploading"} message="Uploading photo..." />;
+  }
+  if (step === "thankyou") {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-40 text-center">
+        <RotatingStack>
+          <div className="px-4 text-center">
+            <p className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6">
+              <span className="block">Thank you!</span>
+              <span className="block mt-8 font-light">
+                Proceed to the next step.
+              </span>
+            </p>
+          </div>
+        </RotatingStack>
+      </div>
+    );
   }
 
   if (step === "showCam") {
@@ -123,7 +139,7 @@ const CameraScan = ({ onStepChange }) => {
 
   if (step === "captured") {
     return (
-      <div className="relative w-full h-full bg-black flex flex-col items-center justify-center overflow-hidden z-20 p-4">
+      <div className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden z-20">
         {/* show picture */}
         <img
           src={capturedSrc}
@@ -133,9 +149,9 @@ const CameraScan = ({ onStepChange }) => {
         <p className="absolute flex items-center justify-center mt-28 top-10 inset-x-0 text-center text-white text-xl font-semibold">
           GREAT SHOT!
         </p>
-        
+
         {/* retake button */}
-        <button className="absolute bottom-4 left-4 px-4 py-2 bg-white/20 text-white">
+        <button className="absolute bottom-4 left-4 px-4 py-2 bg-white/20 text-white rounded">
           RETAKE
         </button>
         {/* proceed button */}
@@ -147,7 +163,6 @@ const CameraScan = ({ onStepChange }) => {
           />
         </button>
       </div>
-      
     );
   }
 
