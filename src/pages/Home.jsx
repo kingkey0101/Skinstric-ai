@@ -7,9 +7,6 @@ import { Link } from "react-router-dom";
 import btnIcon from "../assets/buttin-icon.png";
 import { gsap } from "gsap";
 
-// gsap.registerPlugin(ScrollTrigger);
-
-// after adding all logic for take test
 
 const Home = () => {
   const textRef = useRef(null);
