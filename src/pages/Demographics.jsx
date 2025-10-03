@@ -73,17 +73,20 @@ const Demographics = () => {
     }[activeCategory] || {};
 
   return (
-    <div className="min-h-screen bg-white flex flex-col px-6 lg:px-12">
+    <div className="h-screen bg-white flex flex-col">
       {/* header */}
-      <header className="px-8 py-4">
+      <header className="sticky top-0 z-40 bg-white px-4 lg:px-0 py-4">
         <h2 className="text-sm font-semibold tracking-wide">A.I. ANALYSIS</h2>
-        <h1 className="text-5xl font-normal mt-2">DEMOGRAPHICS</h1>
+        <h1 className=" text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal mt-2">
+          DEMOGRAPHICS
+        </h1>
         <p className="text-sm mt-3">Predicted Race & Age</p>
       </header>
+
       {/* layout - main */}
-      <div className="flex flex-1 border-t">
+      <div className="flex flex-col lg:flex-row flex-1 border-t overflow-y-auto pb-24 lg:w-screen lg:max-w-none lg:justify-between lg:gap-0 lg:px-0">
         {/* sidebar - left */}
-        <aside className="w-[208px] h-[104px] flex flex-col">
+        <aside className="order-1 lg:order-1 w-full lg:w-[208px] flex-shrink-0 flex flex-col lg:ml-0 lg:px-0">
           {/* race */}
           <div
             className={`border-b px-4 py-3 cursor-pointer ${
@@ -130,19 +133,24 @@ const Demographics = () => {
         </aside>
 
         {/* center */}
-        <div className="relative flex-1 flex justify-end bg-gray-50 mx-8 w-[1168px] h-[544px] ">
-          <div className="absolute top-4 left-4 text-5xl font-medium capitalize">
+        <div className="order-2 lg:order-2 flex flex-col items-center justify-center bg-gray-50 
+         w-full h-[300px] sm:h-[400px]
+         lg:w-[1168px] lg:h-[544px] lg:mx-4 mt-5 lg:mt-0">
+          <div className="text-3xl sm:text-4xl font-medium capitalize mb-4">
             {activeCategory === "age"
               ? `${currentAge.label} y.o.`
               : currentCategory.label}
           </div>
-          <div className="absolute bottom-8 right-8 w-[384px] h-[384px]">
+          <div className="my-8 w-[200px] h-[200px] sm:w-64 sm:h-64 lg:w-[384px] lg:h-[384px] mt-5 lg:mt-0">
             <CircleProgress value={parseFloat(currentCategory.display)} />
+            <h3 className="text-xs text-gray-500 text-center">
+              If A.I. estimate is wrong, please select the correct one.
+            </h3>
           </div>
         </div>
 
         {/* sidebar - right */}
-        <aside className="w-[448px] h-[554px] border-t-2 border-gray-800 p-4 bg-gray-50">
+        <aside className="order-3 lg:order-3 w-full lg:w-[448px] border-t-2 border-gray-800 p-4 bg-gray-50 mt-5 lg:mt-0">
           {activeCategory === "race" && (
             <SidebarOptions
               category="Race"
@@ -170,29 +178,18 @@ const Demographics = () => {
         </aside>
       </div>
 
-      {/* bck btn */}
-      <button
-        onClick={() => navigate(-1)}
-        className="fixed bottom-4 left-4 flex items-center justify-center "
-      >
-        <img src={btnBck} alt="Back button" />
-      </button>
-
       {/* footer */}
-      <footer className="sticky bottom-0 flex items-center justify-between gap-4 px-8 py-4">
-        <div className="w-24"></div>
-        <div className="flex flex-1 justify-center ">
-          <h3 className="text-xs text-gray-500">If A.I. estimate is wrong, please select the correct one.</h3>
-        </div>
+      <footer className="sticky bottom-0 flex items-center justify-between gap-4 px-8 py-4 bg-white sm:bg-transparent">
+        {/* bck btn */}
+        <button
+          onClick={() => navigate(-1)}
+          className="fixed bottom-4 left-4 flex items-center justify-center "
+        >
+          <img src={btnBck} alt="Back button" />
+        </button>
 
         <button
-          className="px-6 py-2 border text-sm uppercase"
-          onClick={() => setActual({ race: null, age: null, gender: null })}
-        >
-          Reset
-        </button>
-        <button
-          className="px-6 py-2 bg-black text-white text-sm uppercase"
+          className="fixed bottom-4 right-4 px-6 py-2 bg-black text-white text-sm uppercase"
           onClick={() => navigate("/home", { state: { actual } })}
         >
           Confirm
