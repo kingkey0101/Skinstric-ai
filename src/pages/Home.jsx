@@ -1,15 +1,81 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Rect2779 from "../assets/Rectangle 2779.svg";
 import Rect2778 from "../assets/Rectangle 2778.png";
 import btnT from "../assets/button-take-test.png";
 import btnD from "../assets/button-discover-ai.png";
 import { Link } from "react-router-dom";
 import btnIcon from "../assets/buttin-icon.png";
+import { gsap } from "gsap";
+
+// gsap.registerPlugin(ScrollTrigger);
+
 // after adding all logic for take test
 
-//
-
 const Home = () => {
+  const textRef = useRef(null);
+  const leftBtnRef = useRef(null);
+  const rightBtnRef = useRef(null);
+  const skincareRef = useRef(null);
+
+  useEffect(() => {
+    if (!textRef.current || !leftBtnRef.current || !rightBtnRef.current) return;
+
+    const shiftX = window.innerWidth / 2 - textRef.current.offsetWidth / 2;
+
+    const extraOffset = 10;
+
+    const headlineDur = 1
+    const spanDur = 1.4
+
+    const leftRect = leftBtnRef.current.getBoundingClientRect()
+    const rightRect = rightBtnRef.current.getBoundingClientRect()
+    const skiRect = skincareRef.current.getBoundingClientRect()
+
+    const targetL = (leftRect.left + leftRect.width/2) - (skiRect.left + skiRect.width/2)
+    const targetR = (rightRect.left + rightRect.width/2) - (skiRect.left + skiRect.width/2)
+
+    // left
+    const tLeftHover = gsap
+      .timeline({ paused: true })
+      .to(textRef.current, { x: shiftX, duration: headlineDur, ease: "power2.out" }, 0)
+      .to(skincareRef.current, {x: `+=${extraOffset}`, duration: spanDur, ease: 'power2.out'}, 0)
+      .to(
+        rightBtnRef.current,
+        { autoAlpha: 0, pointerEvents: "none", duration: 0.8 },
+        0
+      );
+
+    // right
+    const tRightHover = gsap
+      .timeline({ paused: true })
+      .to(textRef.current, { x: -shiftX, duration: headlineDur, ease: "power2.out" }, 0)
+      .to(skincareRef.current, {x: `-=${extraOffset}`, duration: spanDur, ease: 'power2.out'}, 0)
+      .to(
+        leftBtnRef.current,
+        { autoAlpha: 0, pointerEvents: "none", duration: 0.8 },
+        0
+      );
+
+    const l = leftBtnRef.current;
+    const r = rightBtnRef.current;
+
+    l.addEventListener("mouseenter", () => tLeftHover.play());
+    l.addEventListener("mouseleave", () => tLeftHover.reverse());
+
+    r.addEventListener("mouseenter", () => tRightHover.play());
+    r.addEventListener("mouseleave", () => tRightHover.reverse());
+
+    return () => {
+      l.removeEventListener("mouseenter", () => tLeftHover.play());
+      l.removeEventListener("mouseleave", () => tLeftHover.reverse());
+
+      r.removeEventListener("mouseenter", () => tRightHover.play());
+      r.removeEventListener("mouseleave", () => tRightHover.reverse());
+
+      tLeftHover.kill();
+      tRightHover.kill();
+    };
+  }, []);
   return (
     <>
       {/* mobile only view */}
@@ -66,7 +132,10 @@ const Home = () => {
     px-4 sm:px-6 md:px-12 lg:px-16"
       >
         {/* left column */}
-        <div className="absolute left-0 top-[140px] lg:top-[179px]">
+        <div
+          ref={leftBtnRef}
+          className="absolute left-0 top-[140px] lg:top-[179px]"
+        >
           {/* discover ai */}
           <div className="relative w-24 sm:w-32 md:w-40 lg:w-[275px] -ml-4 sm:-ml-6 md:-ml-12 lg:-ml-52 ">
             <img
@@ -91,18 +160,22 @@ const Home = () => {
         {/* sophisticated skincare - center*/}
         <div className="flex-1 min-h-0 flex items-center justify-center px-2">
           <h1
+            ref={textRef}
             className="text-center font-roobert text-[clamp(2rem,8vw,120px)] leading-tight
          text-[#1a1b1c] tracking-tighter
          transform -translate-y-4"
           >
             <span className="block">Sophisticated</span>
-            <span className="block">skincare</span>
+            <span ref={skincareRef} className="block">skincare</span>
           </h1>
         </div>
 
         {/* right column */}
 
-        <div className="absolute right-0 top-[140px] lg:top-[179px]">
+        <div
+          ref={rightBtnRef}
+          className="absolute right-0 top-[140px] lg:top-[179px]"
+        >
           {/* take test */}
           <div className="relative w-24 sm:w-32 md:w-40 lg:w-[275px] -mr-4 sm:-mr-6 md:-mr-12 lg:-mr-52">
             <img
