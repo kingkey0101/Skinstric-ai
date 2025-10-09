@@ -35,7 +35,7 @@ Skinstric.AI is a responsive React application that allows users to capture live
 
 ---
 
-## 🧑‍💻 Author
+## Author
 **Keylan King** — Frontend Developer  
 📧 kingkey0101@outlook.com  
 🌐 [Portfolio](https://keylan-king-portfolio.vercel.app/) • [GitHub](https://github.com/kingkey0101)
