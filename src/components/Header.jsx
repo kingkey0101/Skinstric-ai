@@ -19,11 +19,11 @@ const Header = () => {
           SKINSTRIC
         </Link>
         <div className="flex items-center space-x-1">
-          <img src={halfRect} className="h-3 sm:h-4" />
+          <img src={halfRect} alt="rectangle" className="h-3 sm:h-4" />
           <span className="text-xs sm:text-sm font-medium text-[#1a1b1c] opacity-70">
             INTRO
           </span>
-          <img src={halfRect} className="h-3 sm:h-4 transform scale-x-[-1]" />
+          <img src={halfRect} alt="rectangle" className="h-3 sm:h-4 transform scale-x-[-1]" />
         </div>
       </div>
 
