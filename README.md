@@ -38,7 +38,7 @@ Skinstric.AI is a responsive React application that allows users to capture live
 | **Best Practices** | 100 | 96 |
 | **SEO** | 92 | 92 |
 
-<sub>Tested with Chrome Lighthouse — Vercel live build, default network conditions.</sub>
+<sub>Tested with Chrome Lighthouse — Vercel live build, default network conditions. Runs repeated twice; reported score is the lower result of two consecutive Lighthouse audits</sub>
 
 
 ## Key Learnings
