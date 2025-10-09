@@ -1,4 +1,4 @@
-# Skinstric.AI — AI-Powered Skin Analysis
+# 🧴 Skinstric.AI — AI-Powered Skin Analysis
 
 Analyze and visualize skin health through real-time camera capture and AI integration.
 
